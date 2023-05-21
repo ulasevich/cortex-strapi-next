@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_section_facts",
+  "info": {
+    "displayName": "Facts"
+  },
+  "options": {},
+  "attributes": {
+    "fact_code": {
+      "type": "string"
+    },
+    "fact_text": {
+      "type": "richtext"
+    }
+  }
+}

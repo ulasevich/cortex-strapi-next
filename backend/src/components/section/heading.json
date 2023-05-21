@@ -1,0 +1,13 @@
+{
+  "collectionName": "components_section_headings",
+  "info": {
+    "displayName": "Heading",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "section_heading": {
+      "type": "string"
+    }
+  }
+}

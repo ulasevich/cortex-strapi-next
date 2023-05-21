@@ -1,0 +1,44 @@
+@import '../base/mixins';
+
+.section {
+    position: relative;
+}
+.section-overflow {
+    position: relative;
+    overflow: hidden;
+}
+.section-bg {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    @include bg-contain;
+}
+.section-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 6rem 0;
+    &-center {
+        margin: auto;
+        width: 100%;
+    }
+    @media all and (max-width: $mobile-992) {
+        padding: 4rem 0;
+    }
+}
+.section--full-height {
+    .section-content {
+        min-height: 100vh;
+        padding: 7rem 0;
+    }
+}
+.section--text-white {
+    &, * {
+        color: var(--color-white);
+    }
+    a:hover {
+        color: var(--font-color-light-secondary);
+    }
+}

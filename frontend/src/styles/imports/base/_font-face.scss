@@ -1,0 +1,16 @@
+@font-face {
+    font-family: 'Calibri';
+    src: url('/font-face/subset-Calibri.woff2') format('woff2'),
+         url('/font-face/subset-Calibri.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Calibri';
+    src: url('/font-face/subset-Calibri-Bold.woff2') format('woff2'),
+         url('/font-face/subset-Calibri-Bold.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}

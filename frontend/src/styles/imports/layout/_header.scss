@@ -1,0 +1,18 @@
+.header {
+	position: fixed;
+	width: 100%;
+	top: 0;
+	left: 0;
+	z-index: 100;
+}
+.header-row {
+	margin: 0;
+	> div[class*='col'] {
+		position: relative;
+		padding-top: 1.5rem;
+		padding-bottom: 1.5rem;
+		padding-left: 2rem;
+		padding-right: 2rem;
+	}
+}
+

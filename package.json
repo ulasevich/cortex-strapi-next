@@ -1,0 +1,15 @@
+{
+  "name": "cortex-strapi-next",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "frontend": "cd frontend && yarn dev",
+    "backend": "cd backend && yarn develop",
+    "dev": "concurrently --kill-others-on-fail \"yarn backend\" \"yarn frontend\""
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {}
+}

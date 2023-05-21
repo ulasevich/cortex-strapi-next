@@ -1,0 +1,31 @@
+.projects-row {
+    position: relative;
+    margin-bottom: -30px;
+	> div[class*="col"] {
+		padding-bottom: 30px;
+	}
+}
+.projects-item-content {
+    position: relative;
+	border: 1px solid #d4d4d4;
+	height: 100%;
+	padding: 50px 25px 70px;
+	@media all and (max-width: $mobile-992) {
+		padding: 20px 20px 70px;
+	}
+}
+.projects-item-detail-link {
+	position: absolute;
+	width: 100%;
+	left: 0;
+	bottom: 25px;
+}
+.projects-item-exit {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+.projects-item-logo {
+	margin-bottom: 25px;
+	text-align: center;
+}
