@@ -1,4 +1,6 @@
 import { NextPage, GetStaticProps } from 'next';
+//import { useRouter } from 'next/router';
+import { useTranslation } from 'next-i18next'
 import * as qs from 'qs';
 //import { AnimationOnScroll } from 'react-animation-on-scroll';
 import { fetcher } from "@/lib/api"
@@ -6,14 +8,17 @@ import { IProjectsData } from "@/interfaces/project.interface";
 import ProjectsList from "@/components/lists/projectsList";
 import { IServicesData } from "@/interfaces/service.interface";
 import ServicesList from "@/components/lists/servicesList";
-import MainLayout from '@/components/layouts/mainLayout';
 import SectionContainer from '@/components/containers/sectionContainer';
+import Meta from '@/components/seo/meta';
 
 
-const IndexPage: NextPage<IProjectsData, IServicesData> = ({projects, services}) => {
-    
+const IndexPage: NextPage<IProjectsData & IServicesData> = ({projects, services}) => {
+    console.log(projects);
+    //const router = useRouter();
+    const { t } = useTranslation('common');
     return (
-        <MainLayout title="Welcome" description=''>
+        <>
+            <Meta title="Welcome" description="" />
             <SectionContainer>
                 <div className="row row-index-block">
 					<div className="col-md-3 index-block-arrow">
@@ -34,12 +39,12 @@ const IndexPage: NextPage<IProjectsData, IServicesData> = ({projects, services})
             </SectionContainer>
             
             <SectionContainer>
-                <h3>Созданные <span className="color-yellow">Компании</span></h3>
-                    <ProjectsList projects={projects} />
+                <h3><span className="color-yellow">{t('companies_built')}</span></h3>
+                <ProjectsList projects={projects} />
             </SectionContainer>
 
             <SectionContainer>
-                <h3>Наш <span className="color-yellow">Сервис</span></h3>
+                <h3><span className="color-yellow">{t('our_services')}</span></h3>
                 <ServicesList services={services} />
             </SectionContainer>
 
@@ -52,18 +57,19 @@ const IndexPage: NextPage<IProjectsData, IServicesData> = ({projects, services})
                     <h3>Наш <span className="color-yellow">Сервис</span></h3>
                     Lorem ipsum
             </SectionContainer>
-        </MainLayout>
+        </>
     )
 }
 
 export default IndexPage;
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
     const page_query = {
         default: qs.stringify(
             {
-                fields: ['name', 'preview_text', 'locale', 'slug', 'sort'],
-                populate: ['preview_image']
+                fields: ['name', 'preview_text', 'locale', 'slug', 'code', 'sort'],
+                populate: ['preview_image'],
+                locale: locale
             },
             { encodeValuesOnly: true }
         )

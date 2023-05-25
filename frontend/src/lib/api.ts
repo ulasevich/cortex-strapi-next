@@ -9,5 +9,12 @@ export async function fetcher(url: string, options = {}) {
         throw new Error('Failed to fetch data');
     }
     const data = await response.json();
+
+    // if (data.length === 0) {
+    //     return {
+    //         notFound: true,
+    //     };
+    // }
+
     return data;
 }
