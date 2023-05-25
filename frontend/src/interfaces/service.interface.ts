@@ -8,6 +8,7 @@ export interface IService {
         publishedAt?: Date,
         locale?: string,
         slug: string,
+        code: string,
         sort?: number,
         preview_image?: {
             data?: {

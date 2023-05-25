@@ -7,7 +7,6 @@ const ProjectsList: FC<IProjectsData> = ({ projects }) => {
     return (
         <div className="row projects-row">
             {projects && projects?.data?.map((project: IProject) => {
-                console.log(typeof project.attributes.preview_image?.data);
                 return (
                     <div className="col-md-4 col-sm-6 projects-row__item" key={project.id}>
                         <div className="projects-item-content">
@@ -29,7 +28,7 @@ const ProjectsList: FC<IProjectsData> = ({ projects }) => {
                             </div>
                             }
                             <div className="projects-item-detail-link align-center">
-                                <Link href={`/projects/${project.attributes.slug}`} className="more-btn">Подробнее</Link>
+                                <Link href={`/projects/${project.attributes.code}`} className="more-btn">Подробнее</Link>
                             </div>
                         </div>
                     </div>

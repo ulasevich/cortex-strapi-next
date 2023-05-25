@@ -1,12 +1,10 @@
 import { FC, PropsWithChildren } from "react";
 import Head from 'next/head';
-import Meta from '../seo/meta';
-import { IMeta } from "../seo/meta.interface";
 import Header from './header';
 import Footer from './footer';
 
 
-const MainLayout: FC<PropsWithChildren<IMeta>> = ({ children, title, description }) => {
+const MainLayout: FC<PropsWithChildren> = ({ children }) => {
   return (
     <>
       <Head>
@@ -26,7 +24,6 @@ const MainLayout: FC<PropsWithChildren<IMeta>> = ({ children, title, description
           crossOrigin="anonymous"
         />
       </Head>
-      <Meta title={title} description={description} />
       {children}
       <Header />
       <Footer />

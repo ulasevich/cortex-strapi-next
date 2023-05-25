@@ -23,7 +23,7 @@
         }
       },
       "type": "string",
-      "unique": true,
+      "unique": false,
       "required": true
     },
     "preview_text": {
@@ -95,6 +95,15 @@
       "components": [
         "section.facts"
       ]
+    },
+    "code": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      },
+      "type": "string",
+      "required": true
     }
   }
 }
