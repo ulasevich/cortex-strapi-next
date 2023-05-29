@@ -2,7 +2,7 @@ export interface IService {
     id: number,
     attributes: {
         name: string,
-        preview_text?: string,
+        preview_text: string,
         createdAt?: Date,
         updatedAt?: Date,
         publishedAt?: Date,

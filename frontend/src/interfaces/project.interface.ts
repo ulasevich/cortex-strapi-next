@@ -2,8 +2,8 @@ export interface IProject {
     id: number,
     attributes: {
         name: string,
-        preview_text?: string,
-        detail_text?: string,
+        preview_text: string,
+        detail_text: string,
         createdAt?: Date,
         updatedAt?: Date,
         publishedAt?: Date,
@@ -32,5 +32,6 @@ export interface IProjectsData {
 export interface IProjectData {
     project: {
         data: IProject
-    }
+    },
+    error?: object
 }

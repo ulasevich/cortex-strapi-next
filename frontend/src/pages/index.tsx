@@ -1,6 +1,7 @@
 import { NextPage, GetStaticProps } from 'next';
 //import { useRouter } from 'next/router';
-import { useTranslation } from 'next-i18next'
+import { useTranslation } from 'next-i18next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import * as qs from 'qs';
 //import { AnimationOnScroll } from 'react-animation-on-scroll';
 import { fetcher } from "@/lib/api"
@@ -13,7 +14,7 @@ import Meta from '@/components/seo/meta';
 
 
 const IndexPage: NextPage<IProjectsData & IServicesData> = ({projects, services}) => {
-    console.log(projects);
+    //console.log(projects);
     //const router = useRouter();
     const { t } = useTranslation('common');
     return (
@@ -39,7 +40,7 @@ const IndexPage: NextPage<IProjectsData & IServicesData> = ({projects, services}
             </SectionContainer>
             
             <SectionContainer>
-                <h3><span className="color-yellow">{t('companies_built')}</span></h3>
+                <h3><span className="color-yellow"></span></h3>
                 <ProjectsList projects={projects} />
             </SectionContainer>
 
@@ -80,7 +81,8 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
     return {
         props: {
             projects: projectsResponse,
-            services: servicesResponse
+            services: servicesResponse,
+            ...await serverSideTranslations(locale as string, ["common"])
         }
     }
 }

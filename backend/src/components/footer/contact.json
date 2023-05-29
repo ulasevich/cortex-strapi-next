@@ -1,0 +1,17 @@
+{
+  "collectionName": "components_footer_contacts",
+  "info": {
+    "displayName": "Contact"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "address": {
+      "type": "richtext",
+      "required": true
+    }
+  }
+}

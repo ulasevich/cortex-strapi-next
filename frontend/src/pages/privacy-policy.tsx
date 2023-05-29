@@ -1,12 +1,13 @@
 import { NextPage } from "next";
-import MainLayout from '@/components/layouts/mainLayout';
+import Meta from "@/components/seo/meta";
 
 
 const PrivacyPolicyPage: NextPage = () => {
     return (
-        <MainLayout title="Privacy Policy" description="Privacy Description">
+        <>
+            <Meta title="Privacy Policy" description="Privacy Description" />
             Privacy Policy Page
-        </MainLayout>
+        </>
     )
 }
 

@@ -1,29 +1,44 @@
 import { NextPage, GetStaticProps, GetStaticPaths } from "next";
 import * as qs from 'qs';
+import { useTranslation } from 'next-i18next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import SectionContainer from '@/components/containers/sectionContainer';
 import { fetcher } from "@/lib/api"
 import { IProject, IProjectData } from "@/interfaces/project.interface";
 import Meta from "@/components/seo/meta";
 
 const ProjectPage: NextPage<IProjectData> = ({project}) => {
-    console.log(project);
+    //console.log(project);
+    const { t } = useTranslation('common');
     return (
         <>
             <Meta title={`Проект ${project.data.attributes.name}`} description={`Описание проекта ${project.data.attributes.name}`} />
-            <SectionContainer>
+            <SectionContainer fullHeight>
                 <h1>{project.data.attributes.name}</h1>
                 <div>{`${process.env.NEXT_PUBLIC_STRAPI_URL}`}</div>
                 <div>
                     {project.data.attributes.detail_text}
                 </div>
             </SectionContainer>
-            <SectionContainer>
-                <h3>Факты о <span className="color-yellow">Проекте</span></h3>
-                <div>Факты</div>
+            <SectionContainer fullHeight>
+                <h3><span className="color-yellow">{t('project_facts')}</span></h3>
+                <div>{t('project_facts')}</div>
             </SectionContainer>
             <SectionContainer>
-                <h3>Бизнес <span className="color-yellow">цели</span></h3>
-                <div>Бизнес цели</div>
+                <h3><span className="color-yellow">{t('cortex_role')}</span></h3>
+                <div>{t('cortex_role')}</div>
+            </SectionContainer>
+            <SectionContainer>
+                <h3><span className="color-yellow">{t('business_goals')}</span></h3>
+                <div>{t('business_goals')}</div>
+            </SectionContainer>
+            <SectionContainer>
+                <h3><span className="color-yellow">{t('technologies')}</span></h3>
+                <div>{t('technologies')}</div>
+            </SectionContainer>
+            <SectionContainer>
+                <h3><span className="color-yellow">{t('development_timeline')}</span></h3>
+                <div>{t('development_timeline')}</div>
             </SectionContainer>
         </>
     )
@@ -48,27 +63,47 @@ export const getStaticProps: GetStaticProps = async (context) => {
     //const slug = context.params?.slug;
     const code = params?.code;
     const projectResponse: IProjectData = await fetcher(`${process.env.NEXT_STRAPI_URL_API}/projects/${code}?${query}`);
+    const translations = await serverSideTranslations(locale as string, ["common"]);
     //console.log('projectResponse ', projectResponse);
-    if (!projectResponse) {
+    //console.log('projectResponse 1111', projectResponse.error);
+
+    if (projectResponse.error) {
         return {
-            props: { hasError: true },
+            notFound: true
+            // props: { 
+            //     hasError: true,
+            // },
         }
     }
 
     return {
         props: {
-            project: projectResponse
+            project: projectResponse,
+            ...translations,
         }
     }
 };
 
-export const getStaticPaths: GetStaticPaths = async () => {
+export const getStaticPaths: GetStaticPaths = async ({locales}: any) => {
     const projectsResponse = await fetcher(`${process.env.NEXT_STRAPI_URL_API}/projects`);
+
     //console.log('projectsResponse ', projectsResponse);
-    const pathsWithParams = projectsResponse.data.map((project: IProject) => ({ params: { code: project.attributes.code }}));
-    //console.log('pathsWithParams ', pathsWithParams);
+    //const pathsWithParams = projectsResponse.data.map((project: IProject) => ({ params: { code: project.attributes.code }, locale}));
+
+    const paths = projectsResponse.data.flatMap((project: IProject) => {
+        return locales.map((locale: string) => ({
+            params: {
+                code: project.attributes.code,
+            },
+            locale,
+        }));
+    });
+
+    //console.log('locales ', locales);
+    //console.log('pathsWithParams ', paths);
+
     return {
-        paths: pathsWithParams,
-        fallback: false,
+        paths: paths,
+        fallback: false // false | blocking
     }
 }
