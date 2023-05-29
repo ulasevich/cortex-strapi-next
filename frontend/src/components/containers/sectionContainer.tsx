@@ -1,12 +1,22 @@
-import { FC, PropsWithChildren } from "react";
+import { FC, ReactNode } from "react";
+import classNames from "classnames";
 
-const SectionContainer: FC<PropsWithChildren> = ({ children }) => {
+type SectionProps = {
+  children: ReactNode,
+  fullHeight?: boolean,
+}
+
+const SectionContainer: FC<SectionProps> = (props) => {
+  const sectionClass = classNames('section', {
+    'section--full-height': props.fullHeight,
+  });
+
   return (
-    <section className="section">
+    <section className={sectionClass}>
       <div className="container-fluid main-container">
         <div className="section-content">
           <div className="section-content-center">
-            {children}
+            {props.children}
           </div>
         </div>
       </div>

@@ -5,16 +5,11 @@ export async function fetcher(url: string, options = {}) {
     } else {
         response = await fetch(url, options);
     }
+
     if (!response.ok) {
         throw new Error('Failed to fetch data');
     }
     const data = await response.json();
-
-    // if (data.length === 0) {
-    //     return {
-    //         notFound: true,
-    //     };
-    // }
 
     return data;
 }

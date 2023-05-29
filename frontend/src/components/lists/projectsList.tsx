@@ -1,9 +1,14 @@
 import { FC } from "react";
+import { useTranslation } from 'next-i18next';
 import Link from 'next/link';
 import Image from 'next/image';
+import dompurify from "isomorphic-dompurify";
+import parse from 'html-react-parser';
 import { IProject, IProjectsData } from "@/interfaces/project.interface";
 
 const ProjectsList: FC<IProjectsData> = ({ projects }) => {
+    const { t } = useTranslation('common');
+    const sanitizer = dompurify.sanitize;
     return (
         <div className="row projects-row">
             {projects && projects?.data?.map((project: IProject) => {
@@ -21,14 +26,13 @@ const ProjectsList: FC<IProjectsData> = ({ projects }) => {
                             </div>
                             }
                             <h3>{project.attributes.name}</h3>
-
-                            {project.attributes.preview_text ??
-                            <div className="preview_text">                         
-                                {project.attributes.preview_text}
+                            
+                            <div className="preview_text">
+                                {parse(sanitizer(project.attributes.preview_text))} 
                             </div>
-                            }
+                            
                             <div className="projects-item-detail-link align-center">
-                                <Link href={`/projects/${project.attributes.code}`} className="more-btn">Подробнее</Link>
+                                <Link href={`/projects/${project.attributes.code}`} className="more-btn">{t('know_more')}</Link>
                             </div>
                         </div>
                     </div>
