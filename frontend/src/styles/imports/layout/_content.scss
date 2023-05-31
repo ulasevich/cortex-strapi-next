@@ -28,17 +28,25 @@
         padding: 4rem 0;
     }
 }
-.section--full-height {
+.section--height-full {
     .section-content {
         min-height: 100vh;
         padding: 7rem 0;
     }
 }
+.section--bg {
+    &-color-dark {
+        background-color: var(--bg-color-dark-secondary);
+    }
+    &-color-beige {
+        background-color: var(--bg-color-light-secondary);
+    }
+}
 .section--text-white {
     &, * {
-        color: var(--color-white);
+        color: var(--font-color-light-primary);
     }
     a:hover {
-        color: var(--font-color-light-secondary);
+        color: var(--color-orange);
     }
 }

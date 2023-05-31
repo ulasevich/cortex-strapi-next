@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 
 export default function LanguageSwitcher() {
     const router = useRouter();
-    console.log('router ', router);
+    //console.log('router ', router);
     return (
         <div>
             <select onChange={(e) =>

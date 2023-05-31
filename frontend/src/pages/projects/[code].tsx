@@ -51,7 +51,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
     const { params = {}, locale } = context;
     const query = qs.stringify(
         {
-            fields: ['name', 'detail_text', 'locale', 'slug', 'code'],
+            fields: ['name', 'detail_text', 'locale', 'code'],
             populate: '*',
             locale: locale
         },
@@ -62,25 +62,21 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
     //const slug = context.params?.slug;
     const code = params?.code;
-    const projectResponse: IProjectData = await fetcher(`${process.env.NEXT_STRAPI_URL_API}/projects/${code}?${query}`);
-    const translations = await serverSideTranslations(locale as string, ["common"]);
-    //console.log('projectResponse ', projectResponse);
-    //console.log('projectResponse 1111', projectResponse.error);
 
-    if (projectResponse.error) {
+    try {
+        const projectResponse: IProjectData = await fetcher(`${process.env.NEXT_STRAPI_URL_API}/projects/${code}?${query}`);
+        const translations = await serverSideTranslations(locale as string, ["common"]);
+        //console.log('projectResponse ', projectResponse);
+
         return {
-            notFound: true
-            // props: { 
-            //     hasError: true,
-            // },
+            props: {
+                project: projectResponse,
+                ...translations,
+            },
+            revalidate: 3600,
         }
-    }
-
-    return {
-        props: {
-            project: projectResponse,
-            ...translations,
-        }
+    } catch(e) {
+        return { notFound: true };
     }
 };
 
@@ -104,6 +100,6 @@ export const getStaticPaths: GetStaticPaths = async ({locales}: any) => {
 
     return {
         paths: paths,
-        fallback: false // false | blocking
+        fallback: 'blocking' // false | true |blocking
     }
 }

@@ -6,7 +6,7 @@ import { factories } from '@strapi/strapi'
 
 
 // export default factories.createCoreController('api::project.project');
-// Кастомное изменение контролера. Чтобы данные получались не по [id], а по [slug] (коду элемента)
+// Кастомное изменение контролера. Чтобы данные получались не по [id], а по [code] (коду элемента)
 export default factories.createCoreController('api::project.project', ({strapi}) => ({
   async findOne(ctx) {
     const { id: code } = ctx.params;

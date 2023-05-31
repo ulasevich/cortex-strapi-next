@@ -13,3 +13,4 @@ export async function fetcher(url: string, options = {}) {
 
     return data;
 }
+
