@@ -1,63 +1,78 @@
-import * as qs from 'qs';
-import { useRouter } from 'next/router';
+import * as qs from "qs";
+import { useRouter } from "next/router";
 import useSWR from "swr";
-import { fetcher } from "@/lib/api";
-import SectionContainer from '../containers/sectionContainer'
+import dompurify from "isomorphic-dompurify";
+import parse from "html-react-parser";
+import SectionContainer from "../containers/sectionContainer";
 
-export interface IFooter {
-  id: number,
-  attributes: {
-      title: string,
-      subtitle: string,
-  }
+export interface IOfficeContact {
+    id: number;
+    title: string;
+    address: string;
 }
-
-const fetchWithLocale = (url: string) => fetch(url).then((r) => r.json());
-
+export interface IFooter {
+    id: number;
+    attributes: {
+        title: string;
+        subtitle: string;
+        office_contact?: IOfficeContact[];
+    };
+}
 
 const Footer = () => {
-  const router = useRouter();
-  const locale = router.locale;
-  console.log("locale ", locale);
+    const router = useRouter();
+    const locale = router.locale;
+    //console.log("locale ", locale);
 
-  const page_query = {
-    default: qs.stringify(
-        {
-            populate: '*',
-            locale: locale
-        },
-        { encodeValuesOnly: true }
-    )
-  }
-  const footerResponse = `${process.env.NEXT_PUBLIC_API_URL}/footer?${page_query.default}`;
+    const sanitizer = dompurify.sanitize;
 
-  const { data, error } = useSWR(footerResponse, fetchWithLocale);
+    const page_query = {
+        default: qs.stringify(
+            {
+                populate: "*",
+                locale: locale,
+            },
+            { encodeValuesOnly: true }
+        ),
+    };
 
-  //console.log(process);
-  //console.log(process.env.NEXT_PUBLIC_API_URL);
+    const fetchWithLocale = (url: string) => fetch(url).then((r) => r.json());
+    const footerURL = `${process.env.NEXT_PUBLIC_API_URL}/footer?${page_query.default}`;
+    const { data, error } = useSWR(footerURL, fetchWithLocale);
 
-  // без этого не будет работать парсинг
-  if (error) return <div>Failed to fetch users.</div>
-  if (!data) return <h2>Loading...</h2>  
+    //console.log(process);
+    //console.log(process.env.NEXT_PUBLIC_API_URL);
 
-  return (
-    <footer className="footer">
-      <SectionContainer>
-        <h2 className="fadeInDown">{data.data.attributes.title}</h2>
-        <p className="middle-text bold fadeInRight">{data.data.attributes.subtitle}</p>
-        
-        <div className="row text-row fadeInUp">
-            <div className="col-sm-6">
-                <h4>Офис</h4>
-                350063, Краснодарский край, город Краснодар, ул. Им. Пушкина, д. 38, офис 107 <br/>
-                Email: <a href="mailto:info@cx.technology">info@cx.technology</a> <br/>
-            </div>
-        </div>
-      </SectionContainer>
-    </footer>
-  )
-}
+    // без этого не будет работать парсинг
+    if (error) return <div>Failed to fetch users.</div>;
+    if (!data) return <h2>Loading...</h2>;
 
-export default Footer
+    return (
+        <footer className="footer">
+            <SectionContainer>
+                <h2>{data.data.attributes.title}</h2>
+                <p className="middle-text bold">
+                    {data.data.attributes.subtitle}
+                </p>
 
+                <div className="row text-row">
+                    {data.data.attributes.office_contact?.map(
+                        (office_contact: IOfficeContact) => {
+                            return (
+                                <div
+                                    className="col-sm-6"
+                                    key={office_contact.id}
+                                >
+                                    <h4>{office_contact.title}</h4>
+                                    {parse(sanitizer(office_contact.address))}
+                                </div>
+                            );
+                        }
+                    )}
+                </div>
+            </SectionContainer>
+        </footer>
+    );
+};
 
+export default Footer;

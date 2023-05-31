@@ -26,10 +26,6 @@
         }
       }
     },
-    "slug": {
-      "type": "uid",
-      "required": true
-    },
     "icon": {
       "type": "media",
       "multiple": false,
@@ -62,15 +58,6 @@
           "localized": false
         }
       }
-    },
-    "code": {
-      "pluginOptions": {
-        "i18n": {
-          "localized": false
-        }
-      },
-      "type": "string",
-      "required": true
     }
   }
 }

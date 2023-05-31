@@ -1,27 +1,48 @@
 import { FC, ReactNode } from "react";
 import classNames from "classnames";
-
-type SectionProps = {
-  children: ReactNode,
-  fullHeight?: boolean,
-}
+import Image from "next/image";
+interface SectionProps {
+    children: ReactNode;
+    fullHeight?: boolean;
+    bgColor?: "beige" | "dark";
+    bgCover?: {
+        attributes: {
+            url: string;
+            width: number;
+            height: number;
+        }
+    }
+};
 
 const SectionContainer: FC<SectionProps> = (props) => {
-  const sectionClass = classNames('section', {
-    'section--full-height': props.fullHeight,
-  });
+    console.log(props.bgCover);
+    console.log("bgCover url ", props.bgCover?.attributes.url);
+    const sectionClass = classNames("section", {
+        "section--height-full": props.fullHeight,
+        "section--bg-color-dark section--text-white": props.bgColor == "dark",
+        "section--bg-color-beige": props.bgColor == "beige",
+    });
 
-  return (
-    <section className={sectionClass}>
-      <div className="container-fluid main-container">
-        <div className="section-content">
-          <div className="section-content-center">
-            {props.children}
-          </div>
-        </div>
-      </div>
-    </section>
-  )
-}
+    return (
+        <section className={sectionClass}>
+            {props.bgCover &&
+            <Image
+                src={`${process.env.NEXT_PUBLIC_STRAPI_URL}${props.bgCover?.attributes.url}`}
+                alt="Cortex"
+                quality="100"
+                fill={true}
+                style={{objectFit:"cover"}}
+            />
+            }
+            <div className="container-fluid main-container">
+                <div className="section-content">
+                    <div className="section-content-center">
+                        {props.children}
+                    </div>
+                </div>
+            </div>
+        </section>
+    );
+};
 
-export default SectionContainer
+export default SectionContainer;

@@ -1,88 +1,128 @@
-import { NextPage, GetStaticProps } from 'next';
+import { NextPage, GetStaticProps } from "next";
 //import { useRouter } from 'next/router';
-import { useTranslation } from 'next-i18next';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import * as qs from 'qs';
+import { useTranslation } from "next-i18next";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import Image from "next/image";
+import * as qs from "qs";
 //import { AnimationOnScroll } from 'react-animation-on-scroll';
-import { fetcher } from "@/lib/api"
+import { fetcher } from "@/lib/api";
 import { IProjectsData } from "@/interfaces/project.interface";
 import ProjectsList from "@/components/lists/projectsList";
 import { IServicesData } from "@/interfaces/service.interface";
 import ServicesList from "@/components/lists/servicesList";
-import SectionContainer from '@/components/containers/sectionContainer';
-import Meta from '@/components/seo/meta';
+import { IMainPageData } from "@/interfaces/main.page.interface";
+import SectionContainer from "@/components/containers/sectionContainer";
+import Meta from "@/components/seo/meta";
 
-
-const IndexPage: NextPage<IProjectsData & IServicesData> = ({projects, services}) => {
-    //console.log(projects);
+const IndexPage: NextPage<IMainPageData & IProjectsData & IServicesData> = ({
+    main_page,
+    projects,
+    services,
+}) => {
+    console.log(main_page);
+    console.log("main_bg", main_page.data.attributes.main_bg.data);
     //const router = useRouter();
-    const { t } = useTranslation('common');
+    const { t } = useTranslation("common");
     return (
         <>
             <Meta title="Welcome" description="" />
-            <SectionContainer>
+            <SectionContainer fullHeight bgColor="dark" bgCover={main_page.data.attributes.main_bg.data}>
                 <div className="row row-index-block">
-					<div className="col-md-3 index-block-arrow">
-                            <div className="big-logo-block">
-                                LOGO
-                            </div>
-					</div>
-                    
-					<div className="col-md-6 index-block-text">
-                            <h3 className="h3-small uppercase">МЫ ПРЕДЛАГАЕМ ИННОВАЦИОННЫЕ ПРЕДПРИЯТИЯ.<br/>ПОД КЛЮЧ.</h3>
-                            <div className="middle-text">
-                                <p>Мы создаем технологические проектные компании для совместных предприятий, предпринимателей и профессионалов, добившихся успеха в традиционных отраслях, чтобы воплотить их видение в предприятия, которые возглавят преобразования и будут управлять новой экономикой.</p>
-                                <p>Мы позволяем основателям пропускать шаги, защищаем их от повторного изобретения велосипеда, ограждаем от рутины, позволяя им сосредоточиться на инновациях, развитии клиентов и отношениях с инвесторами.</p>
-                                <p>Мы практикуем инвестиции в технологии, когда впечатляющие идеи получают базовые технологии, консультации и платежную инфраструктуру за символическую плату.</p>
-                            </div>
-					</div>
-				</div>
-            </SectionContainer>
-            
-            <SectionContainer>
-                <h3><span className="color-yellow"></span></h3>
-                <ProjectsList projects={projects} />
+                    <div className="col-md-3 index-block-arrow">
+                        {main_page.data.attributes.main_logo.data &&
+                        <div className="big-logo-block">
+                            <Image
+                                src={`${process.env.NEXT_PUBLIC_STRAPI_URL}${main_page.data.attributes.main_logo.data.attributes.url}`}
+                                width={main_page.data.attributes.main_logo.data.attributes.width}
+                                height={main_page.data.attributes.main_logo.data.attributes.height}
+                                alt="Cortex"
+                            />
+                        </div>
+                        }
+                    </div>
+
+                    <div className="col-md-6 index-block-text">
+                        <h3 className="h3-small uppercase">
+                            {main_page.data.attributes.title}
+                        </h3>
+                        <div className="middle-text">
+                            {main_page.data.attributes.detail_text}
+                        </div>
+                    </div>
+                </div>
             </SectionContainer>
 
             <SectionContainer>
-                <h3><span className="color-yellow">{t('our_services')}</span></h3>
+                <h3><span className="color-yellow">{t("companies_built")}</span></h3>
+                <ProjectsList projects={projects} />
+            </SectionContainer>
+
+            <SectionContainer bgColor="beige">
+                <h3><span className="color-yellow">{t("our_services")}</span></h3>
                 <ServicesList services={services} />
             </SectionContainer>
 
             <SectionContainer>
-                <h3>Наш <span className="color-yellow">Сервис</span></h3>
-                Lorem ipsum
+                <h3><span className="color-yellow">{t("why_us")}</span></h3>
+                {t("why_us")}
+            </SectionContainer>
+
+            <SectionContainer bgColor="beige">
+                <h3><span className="color-yellow">{t("our_focus")}</span></h3>
+                {t("our_focus")}
             </SectionContainer>
 
             <SectionContainer>
-                    <h3>Наш <span className="color-yellow">Сервис</span></h3>
-                    Lorem ipsum
+                <h3><span className="color-yellow">{t("our_achievements")}</span></h3>
+                {t("our_achievements")}
+            </SectionContainer>
+
+            <SectionContainer bgColor="beige">
+                <h3><span className="color-yellow">{t("clients_say")}</span></h3>
+                {t("clients_say")}
             </SectionContainer>
         </>
-    )
-}
+    );
+};
 
 export default IndexPage;
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
     const page_query = {
-        default: qs.stringify(
+        index: qs.stringify(
             {
-                fields: ['name', 'preview_text', 'locale', 'slug', 'code', 'sort'],
-                populate: ['preview_image'],
-                locale: locale
+                fields: ["title", "detail_text", "locale"],
+                populate: "*",
+                locale: locale,
             },
             { encodeValuesOnly: true }
-        )
-    }
-    
-    const projectsResponse: IProjectsData = await fetcher(`${process.env.NEXT_STRAPI_URL_API}/projects?${page_query.default}`);
-    const servicesResponse: IServicesData = await fetcher(`${process.env.NEXT_STRAPI_URL_API}/our-services?${page_query.default}`);
+        ),
+        default: qs.stringify(
+            {
+                fields: ["name", "preview_text", "locale", "code", "sort"],
+                populate: ["preview_image"],
+                locale: locale,
+            },
+            { encodeValuesOnly: true }
+        ),
+    };
+
+    const mainPageResponse: IMainPageData = await fetcher(
+        `${process.env.NEXT_STRAPI_URL_API}/main-page?${page_query.index}`
+    );
+    const projectsResponse: IProjectsData = await fetcher(
+        `${process.env.NEXT_STRAPI_URL_API}/projects?${page_query.default}`
+    );
+    const servicesResponse: IServicesData = await fetcher(
+        `${process.env.NEXT_STRAPI_URL_API}/our-services?${page_query.default}`
+    );
+
     return {
         props: {
+            main_page: mainPageResponse,
             projects: projectsResponse,
             services: servicesResponse,
-            ...await serverSideTranslations(locale as string, ["common"])
-        }
-    }
-}
+            ...(await serverSideTranslations(locale as string, ["common"])),
+        },
+    };
+};
