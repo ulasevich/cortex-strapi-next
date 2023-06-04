@@ -5,6 +5,7 @@ interface SectionProps {
     children: ReactNode;
     fullHeight?: boolean;
     bgColor?: "beige" | "dark";
+    id?: string,
     bgCover?: {
         attributes: {
             url: string;
@@ -15,8 +16,8 @@ interface SectionProps {
 };
 
 const SectionContainer: FC<SectionProps> = (props) => {
-    console.log(props.bgCover);
-    console.log("bgCover url ", props.bgCover?.attributes.url);
+    //console.log(props.bgCover);
+    //console.log("bgCover url ", props.bgCover?.attributes.url);
     const sectionClass = classNames("section", {
         "section--height-full": props.fullHeight,
         "section--bg-color-dark section--text-white": props.bgColor == "dark",
@@ -24,7 +25,7 @@ const SectionContainer: FC<SectionProps> = (props) => {
     });
 
     return (
-        <section className={sectionClass}>
+        <section className={sectionClass} id={props.id}>
             {props.bgCover &&
             <Image
                 src={`${process.env.NEXT_PUBLIC_STRAPI_URL}${props.bgCover?.attributes.url}`}

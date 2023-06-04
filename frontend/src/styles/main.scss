@@ -8,5 +8,11 @@
 @import "./imports/layout/_header";
 @import "./imports/layout/_footer";
 
+@import "./imports/forms/_elements";
+@import "./imports/forms/_text";
+@import "./imports/forms/_btn";
+
 @import "./imports/sections/_index";
 @import "./imports/sections/_projects-list";
+
+@import "./imports/extra/_preloaders";
