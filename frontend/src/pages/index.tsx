@@ -19,14 +19,14 @@ const IndexPage: NextPage<IMainPageData & IProjectsData & IServicesData> = ({
     projects,
     services,
 }) => {
-    console.log(main_page);
-    console.log("main_bg", main_page.data.attributes.main_bg.data);
+    //console.log(main_page);
+    //console.log("main_bg", main_page.data.attributes.main_bg.data);
     //const router = useRouter();
     const { t } = useTranslation("common");
     return (
         <>
             <Meta title="Welcome" description="" />
-            <SectionContainer fullHeight bgColor="dark" bgCover={main_page.data.attributes.main_bg.data}>
+            <SectionContainer fullHeight bgColor="dark" bgCover={main_page.data.attributes.main_bg.data} id="index">
                 <div className="row row-index-block">
                     <div className="col-md-3 index-block-arrow">
                         {main_page.data.attributes.main_logo.data &&
@@ -52,32 +52,32 @@ const IndexPage: NextPage<IMainPageData & IProjectsData & IServicesData> = ({
                 </div>
             </SectionContainer>
 
-            <SectionContainer>
+            <SectionContainer id="companies-built">
                 <h3><span className="color-yellow">{t("companies_built")}</span></h3>
                 <ProjectsList projects={projects} />
             </SectionContainer>
 
-            <SectionContainer bgColor="beige">
+            <SectionContainer id="our-services" bgColor="beige">
                 <h3><span className="color-yellow">{t("our_services")}</span></h3>
                 <ServicesList services={services} />
             </SectionContainer>
 
-            <SectionContainer>
+            <SectionContainer id="why-us">
                 <h3><span className="color-yellow">{t("why_us")}</span></h3>
                 {t("why_us")}
             </SectionContainer>
 
-            <SectionContainer bgColor="beige">
+            <SectionContainer id="our-focus" bgColor="beige">
                 <h3><span className="color-yellow">{t("our_focus")}</span></h3>
                 {t("our_focus")}
             </SectionContainer>
 
-            <SectionContainer>
+            <SectionContainer id="our-achievements">
                 <h3><span className="color-yellow">{t("our_achievements")}</span></h3>
                 {t("our_achievements")}
             </SectionContainer>
 
-            <SectionContainer bgColor="beige">
+            <SectionContainer id="clients-say" bgColor="beige">
                 <h3><span className="color-yellow">{t("clients_say")}</span></h3>
                 {t("clients_say")}
             </SectionContainer>
@@ -107,22 +107,30 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
         ),
     };
 
-    const mainPageResponse: IMainPageData = await fetcher(
-        `${process.env.NEXT_STRAPI_URL_API}/main-page?${page_query.index}`
-    );
-    const projectsResponse: IProjectsData = await fetcher(
-        `${process.env.NEXT_STRAPI_URL_API}/projects?${page_query.default}`
-    );
-    const servicesResponse: IServicesData = await fetcher(
-        `${process.env.NEXT_STRAPI_URL_API}/our-services?${page_query.default}`
-    );
+    try {
+        const mainPageResponse: IMainPageData = await fetcher(
+            `${process.env.NEXT_STRAPI_URL_API}/main-page?${page_query.index}`
+        );
+        const projectsResponse: IProjectsData = await fetcher(
+            `${process.env.NEXT_STRAPI_URL_API}/projects?${page_query.default}`
+        );
+        const servicesResponse: IServicesData = await fetcher(
+            `${process.env.NEXT_STRAPI_URL_API}/our-services?${page_query.default}`
+        );
 
-    return {
-        props: {
-            main_page: mainPageResponse,
-            projects: projectsResponse,
-            services: servicesResponse,
-            ...(await serverSideTranslations(locale as string, ["common"])),
-        },
-    };
+        return {
+            props: {
+                main_page: mainPageResponse,
+                projects: projectsResponse,
+                services: servicesResponse,
+                ...(await serverSideTranslations(locale as string, ["common"])),
+            },
+        };
+    } 
+    catch (e) {
+        console.log('IndexPage getStaticProps error', e);
+        return { 
+            notFound: true
+        };
+    }
 };

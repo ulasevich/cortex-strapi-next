@@ -1,6 +1,7 @@
 {
 	"en": "Английский",
 	"ru": "Русский",
+	"cortex": "Кортекс",
 	"change_locale": "Изменить язык",
 	"current_locale": "Текущий язык",
 	"companies_built": "Компании",

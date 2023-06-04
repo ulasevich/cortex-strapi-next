@@ -10,7 +10,7 @@ const Page404: NextPage = () => {
     return (
         <>
             <Meta title={`404 - ${t('page_not_found')}`} description="" />
-            <SectionContainer>
+            <SectionContainer fullHeight>
                 <h1>404 - {t('page_not_found')}</h1>
                 <div>
                     <Link href="/">{t('go_back_home')}</Link>

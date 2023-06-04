@@ -1,0 +1,17 @@
+.form-elements {
+    margin: 0 -15px -30px;
+    > div[class*='col'] {
+        padding: 0 15px 30px;
+    }
+}
+.form-sumbit {
+    text-align: center;
+}
+.contact-form-lazyload {
+    position: relative;
+    min-height: 400px;
+}
+.contact-form-wrapper {
+    max-width: 500px;
+    margin: 0 auto;
+}

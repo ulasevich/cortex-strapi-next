@@ -1,23 +1,37 @@
 import { useRouter } from 'next/router';
+import { useTranslation } from "next-i18next";
 
 export default function LanguageSwitcher() {
     const router = useRouter();
-    //console.log('router ', router);
+    console.log(router);
+    const { t } = useTranslation("common");
+
+    const langChange = (e: React.ChangeEvent<{ value: string }>) => {
+        router.push(
+            {
+                pathname: router.pathname,
+                query: router.query,
+            },
+            router.asPath,
+            {
+                locale: e.target.value, scroll: false
+            }
+        );
+    };
+
     return (
         <div>
-            <select onChange={(e) =>
-                router.push(
-                    {
-                        pathname: router.pathname,
-                        query: router.query,
-                    },
-                    router.asPath,
-                    { locale: e.target.value, scroll: false }
+            <select onChange={langChange} value={router.locale}>
+                {router.locales?.map((locale: string) => {
+                    return (
+                        <option 
+                            value={locale}
+                            key={locale}
+                        >
+                            {t(locale)}
+                        </option>
                     )
-                }
-                >
-                <option value='en'>English</option>
-                <option value='ru'>Русский</option>
+                })}
             </select>
         </div>
     );

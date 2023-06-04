@@ -1,0 +1,101 @@
+::placeholder {
+	color: transparent;
+	opacity: 0;
+	font-style: normal;
+}
+:-ms-input-placeholder {
+	color: transparent;
+	font-style: normal;
+}
+::-ms-input-placeholder {
+	color: transparent;
+	font-style: normal;
+}
+
+fieldset {
+    border: none;
+}
+label.placeholder {
+	position: absolute;
+	margin: 12px 0;
+	font-size: 18px;
+    line-height: 1em;
+	padding: 0 4px;
+	color:  #6c757d;
+	display: flex;
+	align-items: center;
+	top: 0;
+	left: 15px;
+	transition: all 0.2s;
+	transform-origin: 0% 0%;
+	background: none;
+	pointer-events: none;
+	z-index: 2;
+}
+.field-text {
+	position: relative;
+	input {
+		display: block;
+		width: 100%;
+		height: 46px;
+		background-color: #FFFFFF;
+		padding: 0 15px;
+		border: solid 1px #B2B2B2;
+		border-radius: 4px;
+		&:not(:placeholder-shown) ~ label.placeholder, &:focus ~ label.placeholder {
+			transform: scale(0.8) translateY(-24px);
+			background: #fff;
+		}
+		&:not(:placeholder-shown) {
+			color: #284B63;
+		}
+		&:focus {
+			border-color: #284B63;
+		}
+		&:focus + label.placeholder {
+			color: #284B63;
+		}
+	}
+}
+.field-textarea {
+    position: relative;
+    width: 100%;
+    height: 5.4rem;
+    background-color: #FFFFFF;
+	textarea {
+		display: block;
+		position: absolute;
+		top: 8px;
+		bottom: 8px;
+		left: 15px;
+		right: 15px;
+		border: none;
+		background: none;
+		line-height: 1.1em;
+		outline: none;
+		resize: none;
+		&:not(:placeholder-shown) ~ label.placeholder, &:focus ~ label.placeholder {
+			transform: scale(0.8) translateY(-22px);
+			background: #fff;
+		}
+		&:not(:placeholder-shown) {
+			color: #284B63;
+		}
+		&:focus + .textarea-block__border {
+			border-color: #284B63;
+		}
+		&:focus + label.placeholder {
+			color: #284B63;
+		}
+	}
+	&__border {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		border: solid 1px #B2B2B2;
+		border-radius: 4px;
+		pointer-events: none;
+	}
+}
