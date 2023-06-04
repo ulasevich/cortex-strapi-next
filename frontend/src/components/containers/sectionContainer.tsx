@@ -13,7 +13,7 @@ interface SectionProps {
             height: number;
         }
     }
-};
+}
 
 const SectionContainer: FC<SectionProps> = (props) => {
     //console.log(props.bgCover);
