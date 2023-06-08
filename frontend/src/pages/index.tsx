@@ -109,13 +109,13 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
 
     try {
         const mainPageResponse: IMainPageData = await fetcher(
-            `${process.env.NEXT_STRAPI_URL_API}/main-page?${page_query.index}`
+            `${process.env.NEXT_PUBLIC_API_URL}/main-page?${page_query.index}`
         );
         const projectsResponse: IProjectsData = await fetcher(
-            `${process.env.NEXT_STRAPI_URL_API}/projects?${page_query.default}`
+            `${process.env.NEXT_PUBLIC_API_URL}/projects?${page_query.default}`
         );
         const servicesResponse: IServicesData = await fetcher(
-            `${process.env.NEXT_STRAPI_URL_API}/our-services?${page_query.default}`
+            `${process.env.NEXT_PUBLIC_API_URL}/our-services?${page_query.default}`
         );
 
         return {
