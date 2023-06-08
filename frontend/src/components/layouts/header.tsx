@@ -14,7 +14,7 @@ const Header = () => {
                     <div className="col-auto">
                         <Link href="/productivity">Landing 1</Link>
                         &nbsp;
-                        <Link href="/privacy-policy">Privacy Policy</Link>
+                        <Link href="/privacy-policy">Privacy Policy 2</Link>
                     </div>
                     <div className="col-auto header-row__lang">
                         <LanguageSwitcher />

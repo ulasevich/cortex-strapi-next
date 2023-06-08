@@ -84,7 +84,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
         
         const code = params?.code;
-        const projectResponse: IProjectData = await fetcher(`${process.env.NEXT_STRAPI_URL_API}/projects/${code}?${query}`);
+        const projectResponse: IProjectData = await fetcher(`${process.env.NEXT_PUBLIC_API_URL}/projects/${code}?${query}`);
         const translations = await serverSideTranslations(locale as string, ["common"]);
         //console.log('projectResponse ', projectResponse);
 
@@ -103,7 +103,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
 export const getStaticPaths: GetStaticPaths = async ({locales}: any) => {
     try {
-        const projectsResponse = await fetcher(`${process.env.NEXT_STRAPI_URL_API}/projects`);
+        const projectsResponse = await fetcher(`${process.env.NEXT_PUBLIC_API_URL}/projects`);
 
         //console.log('projectsResponse ', projectsResponse);
         //const pathsWithParams = projectsResponse.data.map((project: IProject) => ({ params: { code: project.attributes.code }, locale}));

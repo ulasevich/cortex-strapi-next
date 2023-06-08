@@ -1,0 +1,79 @@
+version: '1.0'
+
+services:
+  frontend:
+    container_name: frontend
+    build:
+      context: ../frontend
+      dockerfile: ../docker-config/Dockerfile.frontend
+    ports:
+      - "3000:3000"
+    env_file: ./.env
+    environment:
+      NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL}
+    # volumes:
+      # Required to sync file changes.
+      # - ../frontend:/usr/app
+      # Required for next to do it's thing.
+      # - /usr/app/.next
+      # Required to not break node modules.
+      # - /usr/app/node_modules
+    networks:
+      - cortex
+
+  backend:
+    container_name: backend
+    build:
+      context: ../backend
+      dockerfile: ../docker-config/Dockerfile.backend
+    restart: unless-stopped
+    ports:
+      - "1337:1337"
+    env_file: ./.env
+    environment:
+      APP_KEYS: ${APP_KEYS}
+      API_TOKEN_SALT: ${API_TOKEN_SALT}
+      ADMIN_JWT_SECRET: ${ADMIN_JWT_SECRET}
+      TRANSFER_TOKEN_SALT: ${TRANSFER_TOKEN_SALT}
+      DATABASE_CLIENT: ${DATABASE_CLIENT}
+      DATABASE_HOST: ${DATABASE_HOST}
+      DATABASE_NAME: ${DATABASE_NAME}
+      DATABASE_USERNAME: ${DATABASE_USERNAME}
+      DATABASE_PORT: ${DATABASE_PORT}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
+      JWT_SECRET: ${JWT_SECRET}
+    links:
+      - strapiDB:strapiDB
+    # volumes:
+      # Required to sync file changes.
+      # - ../backend:/usr/app
+      # Required to not break node modules.
+      # - /usr/app/node_modules
+    networks:
+      - cortex
+    depends_on:
+      - strapiDB
+
+  strapiDB:
+    image: postgres:15
+    container_name: strapiDB
+    restart: unless-stopped
+    ports:
+      - "5432:5432"
+    env_file: ./.env
+    environment:
+      - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
+      - POSTGRES_USER=${DATABASE_USERNAME}
+      - POSTGRES_DB=${DATABASE_NAME}
+    # volumes:
+      # - postgres-data:/var/lib/postgresql/data
+    networks:
+      - cortex
+
+networks:
+  cortex:
+    name: Cortex
+    driver: bridge
+
+# volumes:
+#  postgres-data:
