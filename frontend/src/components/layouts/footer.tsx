@@ -60,7 +60,7 @@ const FooterContent = () => {
     // без этого не будет работать парсинг
     if (error) return <div>Failed to fetch data.</div>;
     if (!data) return <h2>Loading...</h2>;
-
+    
     footerCover = data.data.attributes.footer_bg.data;
 
     return (

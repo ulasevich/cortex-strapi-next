@@ -1,10 +1,12 @@
 import { NextPage, GetStaticProps } from "next";
 //import { useRouter } from 'next/router';
+//import { AnimationOnScroll } from 'react-animation-on-scroll';
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import Image from "next/image";
+import dompurify from "isomorphic-dompurify";
+import parse from 'html-react-parser';
 import * as qs from "qs";
-//import { AnimationOnScroll } from 'react-animation-on-scroll';
 import { fetcher } from "@/lib/api";
 import { IProjectsData } from "@/interfaces/project.interface";
 import ProjectsList from "@/components/lists/projectsList";
@@ -22,6 +24,7 @@ const IndexPage: NextPage<IMainPageData & IProjectsData & IServicesData> = ({
     //console.log(main_page);
     //console.log("main_bg", main_page.data.attributes.main_bg.data);
     //const router = useRouter();
+    const sanitizer = dompurify.sanitize;
     const { t } = useTranslation("common");
     return (
         <>
@@ -43,10 +46,10 @@ const IndexPage: NextPage<IMainPageData & IProjectsData & IServicesData> = ({
 
                     <div className="col-md-6 index-block-text">
                         <h3 className="h3-small uppercase">
-                            {main_page.data.attributes.title}
+                            {parse(sanitizer(main_page.data.attributes.title))}
                         </h3>
                         <div className="middle-text">
-                            {main_page.data.attributes.detail_text}
+                            {parse(sanitizer(main_page.data.attributes.detail_text))}
                         </div>
                     </div>
                 </div>
@@ -108,6 +111,7 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
     };
 
     try {
+
         const mainPageResponse: IMainPageData = await fetcher(
             `${process.env.NEXT_PUBLIC_API_URL}/main-page?${page_query.index}`
         );

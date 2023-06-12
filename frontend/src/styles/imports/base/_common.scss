@@ -72,3 +72,143 @@ p {
         margin-bottom: 0;
     }
 }
+
+h1, h2, h3, h4, h5, h6 {
+	margin: 1em 0 0.4em;
+	line-height: 1.15em;
+	font-weight: bold;
+	&:first-child { margin-top: 0; }
+}
+.title-1, h1 {
+	font-size: 3em;
+    margin-bottom: 10px;
+    margin-top: 0;
+	line-height: 1em;
+    color: #6D6E70;
+	@media all and (max-width: $mobile-992) {
+		font-size: 4em;
+	}
+	@media all and (max-width: $mobile-575) {
+		font-size: 3.5em;
+	}
+}
+.subtitle, h2 {
+	font-size: 3em;
+	font-style: normal;
+	text-transform: none;
+	color: #6D6E70;
+	@media all and (max-width: $mobile-992) {
+		font-size: 2.4em;
+		margin-top: 20px;
+	}
+}
+h3 {
+	font-size: 4em;
+	margin-top: 0;
+	color: #d3d3d3;
+	text-align: center;
+	@media all and (max-width: $mobile-992) {
+		font-size: 3em;
+	}
+	@media all and (max-width: $mobile-575) {
+		font-size: 2.5em;
+	}
+}
+.mobile-h3 {
+	display: none;
+	@media all and (max-width: $mobile-992) {
+		display: block;
+	}
+}
+h3.h3-small {
+    text-align: left;
+    font-size: 36px;
+    @media all and (max-width: $mobile-992) {
+		font-size: 26px;
+	}
+}
+h4 {
+	text-align: left;
+	font-size: 1.2em;
+}
+
+.middle-text {
+	font-size: 1.35em;
+	line-height: 1.3em;
+}
+.big-text {
+	font-size: 1.8em;
+	line-height: 1.1em;
+	@media all and (max-width: $desktop-1280) {
+		font-size: 1.5em;
+	}
+}
+
+/* ----- lists ----- */
+ul {
+    list-style: none;
+    margin-bottom: 1em;
+    padding: 0;
+    ul {
+        margin: 0.5em 0 0.5em 2em;
+    }
+    & > li {
+        margin: 0.4em 0;
+    }
+    & > li:before {
+        display: inline-block;
+        content: '•';
+        font-size: 12px;
+        padding-right: 15px;
+        color: var(--color-green);
+    }
+    &.yellow-list-circle > li {
+		margin: 0.2em 0 1.2em;
+		&:before {
+			font-size: 60px;
+            line-height: 25px;
+			color: var(--color-yellow);
+			vertical-align: middle;
+		}
+	}
+    &.not-list {
+        &, & ul {
+            margin: 0;
+        }
+        li {
+            margin: 0;
+            &:before {
+                display: none;
+            }
+        }
+    }
+}
+ol {
+    list-style-type: none;
+    counter-reset: item;
+    margin-bottom: 1em;
+    padding: 0;
+    ul {
+        margin-bottom: 5px;
+    }
+    & > li {
+        counter-increment: item;
+        margin: 0.4em 0 0.5em;
+    }
+    & > li:before {
+        content: counters(item, '. ') '. ';
+        display: inline-block;
+        padding-right: 10px;
+        white-space: nowrap;
+    }
+    & li & > li:before {
+        content: counters(item, '. ') ' ';
+    }
+    & li:first-child {
+        margin-top: 0.6em;
+    }
+    & li:last-child {
+        margin-bottom: 0;
+    }
+}
+

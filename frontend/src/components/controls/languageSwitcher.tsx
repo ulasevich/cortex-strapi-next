@@ -3,7 +3,7 @@ import { useTranslation } from "next-i18next";
 
 export default function LanguageSwitcher() {
     const router = useRouter();
-    console.log(router);
+    //console.log(router);
     const { t } = useTranslation("common");
 
     const langChange = (e: React.ChangeEvent<{ value: string }>) => {
@@ -20,7 +20,9 @@ export default function LanguageSwitcher() {
     };
 
     return (
-        <div>
+        <>
+        {router.locale !== "ru" // если у пользователя Locale - ru, переключатель не выводим
+            ? 
             <select onChange={langChange} value={router.locale}>
                 {router.locales?.map((locale: string) => {
                     return (
@@ -33,6 +35,9 @@ export default function LanguageSwitcher() {
                     )
                 })}
             </select>
-        </div>
-    );
+            : 
+            <></>
+        }
+        </>
+    )
 }

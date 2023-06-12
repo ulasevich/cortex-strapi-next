@@ -25,7 +25,6 @@ const ProjectsList: FC<IProjectsData> = ({ projects }) => {
                                 />
                             </div>
                             }
-                            <h3>{project.attributes.name}</h3>
                             
                             <div className="preview_text">
                                 {parse(sanitizer(project.attributes.preview_text))} 

@@ -25,7 +25,14 @@ const ProductivityPage: NextPage = () => {
             <SectionContainer fullHeight id="contact-form">
                 <h3 style={{textAlign: 'center'}}>Lets Talk</h3>
                 <br/>
-                <LazyLoad height={400} className="contact-form-lazyload" offset={100} debounce={1000} placeholder={<BlockPreloader>Form loading</BlockPreloader>} once>
+                <LazyLoad 
+                    height={400} 
+                    className="contact-form-lazyload" 
+                    offset={100} 
+                    debounce={1000} 
+                    placeholder={<BlockPreloader>Form loading</BlockPreloader>} 
+                    once
+                >
                     <ContactForm />
                 </LazyLoad>
             </SectionContainer>
