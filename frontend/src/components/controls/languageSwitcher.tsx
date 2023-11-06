@@ -21,7 +21,7 @@ export default function LanguageSwitcher() {
 
     return (
         <>
-        {router.locale !== "ru" // если у пользователя Locale - ru, переключатель не выводим
+        {router.locale !== "fr" // если у пользователя Locale - ru, переключатель не выводим
             ? 
             <select onChange={langChange} value={router.locale}>
                 {router.locales?.map((locale: string) => {

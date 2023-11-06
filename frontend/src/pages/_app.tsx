@@ -5,10 +5,9 @@ import "animate.css/animate.min.css";
 import "@/styles/main.scss";
 
 function MyApp({ Component, pageProps }: AppProps) {
-    const AnyComponent = Component as any;
     return (
         <MainLayout>
-            <AnyComponent {...pageProps} />
+            <Component {...pageProps} />
         </MainLayout>
     );
 }

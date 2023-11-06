@@ -1,4 +1,5 @@
-import { NextPage, GetStaticProps } from "next";
+import { NextPage } from "next";
+import type { InferGetStaticPropsType, GetStaticProps } from "next";
 //import { useRouter } from 'next/router';
 //import { AnimationOnScroll } from 'react-animation-on-scroll';
 import { useTranslation } from "next-i18next";
@@ -16,16 +17,18 @@ import { IMainPageData } from "@/interfaces/main.page.interface";
 import SectionContainer from "@/components/containers/sectionContainer";
 import Meta from "@/components/seo/meta";
 
+
 const IndexPage: NextPage<IMainPageData & IProjectsData & IServicesData> = ({
     main_page,
     projects,
-    services,
+    services
 }) => {
     //console.log(main_page);
     //console.log("main_bg", main_page.data.attributes.main_bg.data);
     //const router = useRouter();
     const sanitizer = dompurify.sanitize;
     const { t } = useTranslation("common");
+
     return (
         <>
             <Meta title="Welcome" description="" />
@@ -57,12 +60,16 @@ const IndexPage: NextPage<IMainPageData & IProjectsData & IServicesData> = ({
 
             <SectionContainer id="companies-built">
                 <h3><span className="color-yellow">{t("companies_built")}</span></h3>
-                <ProjectsList projects={projects} />
+                <ProjectsList 
+                    projects={projects} 
+                />
             </SectionContainer>
 
             <SectionContainer id="our-services" bgColor="beige">
                 <h3><span className="color-yellow">{t("our_services")}</span></h3>
-                <ServicesList services={services} />
+                <ServicesList 
+                    services={services} 
+                />
             </SectionContainer>
 
             <SectionContainer id="why-us">
@@ -100,9 +107,17 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
             },
             { encodeValuesOnly: true }
         ),
-        default: qs.stringify(
+        projects: qs.stringify(
             {
                 fields: ["name", "preview_text", "locale", "code", "sort"],
+                populate: ["preview_image"],
+                locale: locale,
+            },
+            { encodeValuesOnly: true }
+        ),
+        services: qs.stringify(
+            {
+                fields: ["name", "preview_text", "locale", "sort"],
                 populate: ["preview_image"],
                 locale: locale,
             },
@@ -111,15 +126,14 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
     };
 
     try {
-
         const mainPageResponse: IMainPageData = await fetcher(
             `${process.env.NEXT_PUBLIC_API_URL}/main-page?${page_query.index}`
         );
         const projectsResponse: IProjectsData = await fetcher(
-            `${process.env.NEXT_PUBLIC_API_URL}/projects?${page_query.default}`
+            `${process.env.NEXT_PUBLIC_API_URL}/projects?${page_query.projects}`
         );
         const servicesResponse: IServicesData = await fetcher(
-            `${process.env.NEXT_PUBLIC_API_URL}/our-services?${page_query.default}`
+            `${process.env.NEXT_PUBLIC_API_URL}/our-services?${page_query.services}`
         );
 
         return {
