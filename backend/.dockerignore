@@ -1,7 +1,11 @@
-.tmp/
-.cache/
-.git/
-build/
-node_modules/
+node_modules
+dist
+build
+.cache
+.git
+npm-debug.log
+.coverage
+.coverage.*
+*Dockerfile*
 .env
-data/
+.aws

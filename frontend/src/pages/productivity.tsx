@@ -11,8 +11,11 @@ const ProductivityPage: NextPage = () => {
         <>
             <Meta title="Are your developers missing deadlines?" description="Meet quantified AI-enchased approach for software development productivity!" />
             <SectionContainer fullHeight id="index">
-                <h1>index ProductivityPage ProductivityPage</h1>
-                index ProductivityPage ProductivityPage
+                <h1>Are your developers missing deadlines?</h1>
+                <div className="middle-text">
+                    <p>Meet AI-enchanted audit of software development processes that focuses on finding bottlenecks and accelerating the productivity of your team.</p>
+                    <p><a href="#second">Scroll to explore</a></p>
+                </div>
             </SectionContainer>
             <SectionContainer fullHeight id="second">
                 second ProductivityPage ProductivityPage
