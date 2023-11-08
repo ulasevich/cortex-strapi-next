@@ -11,7 +11,10 @@ const ProductivityPage: NextPage = () => {
         <>
             <Meta title="Are your developers missing deadlines?" description="Meet quantified AI-enchased approach for software development productivity!" />
             <SectionContainer fullHeight id="index">
-                <h1>Are your developers missing deadlines?</h1>
+                <h1>Are your developers missing deadlines?11</h1>
+                {/* <h2>{process.env.NEXT_PUBLIC_API_URL}</h2>
+                <h2>{process.env.NEXT_PUBLIC_STRAPI_URL}</h2>
+                <h2>{process.env.DATABASE_HOST}</h2> */}
                 <div className="middle-text">
                     <p>Meet AI-enchanted audit of software development processes that focuses on finding bottlenecks and accelerating the productivity of your team.</p>
                     <p><a href="#second">Scroll to explore</a></p>

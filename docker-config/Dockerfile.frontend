@@ -1,12 +1,17 @@
 FROM node:20
 
-RUN mkdir -p /usr/app
-WORKDIR /usr/app
+ENV PORT 3000
 
-COPY package*.json yarn.lock ./
+RUN mkdir -p /app
+WORKDIR /app
 
-RUN yarn install
+COPY package*.json /app/
+# COPY .env /app/
+
+RUN yarn config set network-timeout 600000 -g && yarn install
 
 COPY . .
+
+EXPOSE 3000
 
 CMD ["yarn", "dev"]
