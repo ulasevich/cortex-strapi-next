@@ -15,12 +15,12 @@ export async function middleware(req: NextRequest) {
         return;
     }
     
-    if (acceptLanguage ==="ru" && req.nextUrl.locale !== "ru") {
-        console.log('111111', acceptLanguage);
-        return NextResponse.redirect(
-           new URL(`/ru${req.nextUrl.pathname}${req.nextUrl.search}`, req.url)
-        );
-    }
+    // if (acceptLanguage ==="ru" && req.nextUrl.locale !== "ru") {
+    //     console.log('111111', acceptLanguage);
+    //     return NextResponse.redirect(
+    //        new URL(`/ru${req.nextUrl.pathname}${req.nextUrl.search}`, req.url)
+    //     );
+    // }
 
     // if (req.nextUrl.locale === "en") {
     //     const locale = req.cookies.get('NEXT_LOCALE')?.value || 'en';
