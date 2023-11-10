@@ -22,7 +22,7 @@ const Page404: NextPage = () => {
 
 export default Page404
 
-export const getStaticProps: GetStaticProps = async (context: any) => {
+export const getStaticProps: GetStaticProps = async (context) => {
     const translations = await serverSideTranslations(context.locale as string, ["common"]);
     return {
         props: {

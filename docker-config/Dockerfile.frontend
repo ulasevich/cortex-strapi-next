@@ -10,6 +10,7 @@ COPY package*.json /app/
 
 RUN yarn config set network-timeout 600000 -g && yarn install
 
+WORKDIR /app
 COPY . .
 
 EXPOSE 3000

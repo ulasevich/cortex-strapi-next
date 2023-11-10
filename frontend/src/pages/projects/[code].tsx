@@ -101,7 +101,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
     }
 };
 
-export const getStaticPaths: GetStaticPaths = async ({locales}: any) => {
+export const getStaticPaths: GetStaticPaths = async ({locales}) => {
     try {
         const projectsResponse = await fetcher(`${process.env.NEXT_PUBLIC_API_URL}/projects`);
 
