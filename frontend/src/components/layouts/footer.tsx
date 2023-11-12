@@ -36,7 +36,8 @@ let footerCover: IFooterBg;
 const FooterContent = () => {
     const router = useRouter();
     const locale = router.locale;
-    //console.log("locale ", locale);
+    console.log("locale ", locale);
+    let x = 1;
 
     const sanitizer = dompurify.sanitize;
 
