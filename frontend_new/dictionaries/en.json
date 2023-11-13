@@ -1,4 +1,12 @@
 {
+    "meta": {
+        "title": "Cortex Technology",
+        "description": "The Anti-Consulting Company"
+    },
+    "lang": {
+        "en": "English",
+	    "ru": "Russian"
+    },
     "heading": {
         "cortex": "Cortex"
     },

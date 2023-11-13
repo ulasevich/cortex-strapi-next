@@ -1,5 +1,5 @@
-import { Locale } from '../../../../i18n-config';
-import { getDictionary } from '../../../../get-dictionary';
+import { Locale } from '@/i18n-config';
+import { getDictionary } from '@/get-dictionary';
 
 export default async function LandingPage({
     params: { lang },
