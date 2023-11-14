@@ -1,14 +1,18 @@
 "use client";
 
 import Link from "next/link"
-import { usePathname } from "next/navigation";
+import { usePathname, useParams } from "next/navigation";
 
 const TopMenu = () => {
     const currentRoute = usePathname();
+    const locale = useParams()?.lang;
+    const params = useParams();
+    console.log(params);
+
     return (
         <div>
-            <Link href="/" className={currentRoute === "/" ? "active-class-name" : ""}>Home</Link> &nbsp;&nbsp;
-            <Link href="/promo" className={currentRoute === "/promo" ? "active-class-name" : ""}>Promo</Link>
+            <Link href={`/${locale}`} className={currentRoute === `/${locale}` ? "active-class-name" : ""}>Home</Link> &nbsp;&nbsp;
+            <Link href={`/${locale}/promo`} className={currentRoute === `/${locale}/promo` ? "active-class-name" : ""}>Promo</Link>
         </div>
     )
 }

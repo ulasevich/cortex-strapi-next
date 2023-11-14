@@ -3,7 +3,7 @@ import type { NextRequest } from "next/server";
 import { match as matchLocale } from "@formatjs/intl-localematcher";
 import Negotiator from "negotiator";
 
-import { i18n } from "@/i18n-config";
+import { i18n, fallbackLng } from "@/i18n-config";
 
 function getLocale(request: NextRequest): string | undefined {
     // Negotiator expects plain object so we need to transform headers
@@ -30,10 +30,31 @@ export function middleware(request: NextRequest) {
 
     // // `/_next/` and `/api/` are ignored by the watcher, but we need to ignore files in `public` manually.
     // // If you have one
+    if (PUBLIC_FILE.test(request.nextUrl.pathname)) return;
+
+    console.log("------------");
+    console.log("pathname", pathname);
+    const locale = getLocale(request);
+    console.log("locale", locale);
+
+    // Check if the default locale is in the pathname
     if (
-        PUBLIC_FILE.test(request.nextUrl.pathname)
-    )
-      return
+        pathname.startsWith(`/${fallbackLng}/`) ||
+        pathname === `/${fallbackLng}`
+    ) {
+        console.log(111);
+        // e.g. incoming request is /en/about
+        // The new URL is now /about
+        return NextResponse.redirect(
+            new URL(
+                pathname.replace(
+                    `/${fallbackLng}`,
+                    pathname === `/${fallbackLng}` ? "/" : ""
+                ),
+                request.url
+            )
+        );
+    }
 
     // Check if there is any supported locale in the pathname
     const pathnameIsMissingLocale = i18n.locales.every(
@@ -43,15 +64,13 @@ export function middleware(request: NextRequest) {
 
     // Redirect if there is no locale
     if (pathnameIsMissingLocale) {
-        const locale = getLocale(request);
-
-        // e.g. incoming request is /products
-        // The new URL is now /en-US/products
-        return NextResponse.redirect(
-            new URL(
-                `/${locale}${pathname.startsWith("/") ? "" : "/"}${pathname}`,
-                request.url
-            )
+        // We are on the default locale
+        // Rewrite so Next.js understands
+    
+        // e.g. incoming request is /about
+        // Tell Next.js it should pretend it's /en/about
+        return NextResponse.rewrite(
+            new URL(`/${fallbackLng}${pathname}`, request.url),
         );
     }
 }
