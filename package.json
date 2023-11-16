@@ -5,10 +5,10 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "frontend": "cd frontend && yarn dev",
+    "frontend_new": "cd frontend_new && yarn dev",
     "backend": "cd backend && yarn develop",
-    "dev": "concurrently --kill-others-on-fail \"yarn backend\" \"yarn frontend\"",
-    "clear": "cd frontend && rm -rf .next && rm -rf cache"
+    "dev": "concurrently --kill-others-on-fail \"yarn backend\" \"yarn frontend_new\"",
+    "clear": "cd frontend_new && rm -rf .next && rm -rf cache"
   },
   "author": "",
   "license": "ISC",

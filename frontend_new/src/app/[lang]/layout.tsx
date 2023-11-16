@@ -3,9 +3,9 @@ import { Metadata } from 'next';
 import { Locale, i18n } from '@/i18n-config';
 import { Carlito } from "next/font/google";
 import "@/styles/globals.scss";
-import LocaleSwitcher from "@/components/localeSwitcher";
+import LocaleSwitcher from "@/_components/localeSwitcher";
 import { getDictionary } from "@/get-dictionary";
-import TopMenu from "@/components/navigation/topMenu";
+import TopMenu from "@/_components/navigation/topMenu";
 
 const carlito = Carlito({
     weight: ["400", "700"],

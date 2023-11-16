@@ -1,6 +1,8 @@
 import Image from "next/image";
 import { Locale } from '@/i18n-config';
 import { getDictionary } from '@/get-dictionary';
+import { fetchMainPage } from "@/app/_lib/data";
+import { MainPageProps } from "@/app/_lib/types";
 
 export default async function Home({
     params: { lang },
@@ -9,11 +11,17 @@ export default async function Home({
 }) {
     const dictionary = await getDictionary(lang);
 
+    const data:MainPageProps = await fetchMainPage(lang);
+
+    console.log("Home data", data);
+
     return (
         <main className="flex min-h-screen flex-col items-center justify-between p-24">
             <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
                 <p>Site name: {dictionary.heading.cortex}</p>
                 <p>Current locale: {lang}</p>
+                <h1>{data.title}</h1>
+                <div>{data.detail_text}</div>
                 <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
                     Get started by editing&nbsp;
                     <code className="font-mono font-bold">

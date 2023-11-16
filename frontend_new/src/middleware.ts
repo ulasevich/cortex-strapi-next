@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { match as matchLocale } from "@formatjs/intl-localematcher";
 import Negotiator from "negotiator";
+
 import { i18n } from "@/i18n-config";
 
 
@@ -55,9 +56,7 @@ export function middleware(request: NextRequest) {
         nextLocale = pathLocale;
     } else {
         const isFirstVisit = !request.cookies.has("NEXT_LOCALE");
-        console.log("NEXT_LOCALE", request.cookies.get("NEXT_LOCALE"));
 
-        console.log("isFirstVisit", isFirstVisit);
         const locale = isFirstVisit ? getLocale(request) : request.cookies.get("NEXT_LOCALE")?.value;
         let newPath = `${locale}${pathname}`;
 
@@ -71,8 +70,6 @@ export function middleware(request: NextRequest) {
     }
 
     if (!response) response = NextResponse.next();
-
-    console.log("nextLocale", nextLocale);
 
     if (nextLocale) response.cookies.set("NEXT_LOCALE", nextLocale);
 
