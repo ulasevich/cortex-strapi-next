@@ -1,11 +1,10 @@
-import Head from "next/head";
 import { Metadata } from 'next';
 import { Locale, i18n } from '@/i18n-config';
 import { Carlito } from "next/font/google";
 import "@/styles/globals.scss";
-import LocaleSwitcher from "@/_components/localeSwitcher";
 import { getDictionary } from "@/get-dictionary";
-import TopMenu from "@/_components/navigation/topMenu";
+import { Header } from "@/_components/layout/Header";
+import { Footer } from "@/_components/layout/Footer";
 
 const carlito = Carlito({
     weight: ["400", "700"],
@@ -52,11 +51,9 @@ export default function RootLayout({
     return (
         <html lang={params.lang}>
             <body className={carlito.className}>
-                <div>
-                    Switcher: <LocaleSwitcher lang={params.lang} />
-                </div>
-                <TopMenu />
+                <Header />
                 {children}
+                <Footer lang={params.lang} />
             </body>
         </html>
     );

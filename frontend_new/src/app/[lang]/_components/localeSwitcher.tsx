@@ -2,14 +2,10 @@
 
 import React from 'react';
 import { useRouter, useParams, useSelectedLayoutSegments } from "next/navigation";
-import { Locale, i18n } from "@/i18n-config";
+import { i18n } from "@/i18n-config";
 import { getDictionary } from "@/get-dictionary";
 
-type LocaleSwitcherProps = {
-    lang: Locale
-}
-
-export default function LocaleSwitcher(props: LocaleSwitcherProps) {
+export default function LocaleSwitcher() {
     const router = useRouter();
     const params = useParams();
     const urlSegments = useSelectedLayoutSegments();
