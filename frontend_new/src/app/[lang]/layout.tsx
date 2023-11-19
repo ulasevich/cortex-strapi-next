@@ -3,8 +3,8 @@ import { Locale, i18n } from '@/i18n-config';
 import { Carlito } from "next/font/google";
 import "@/styles/globals.scss";
 import { getDictionary } from "@/get-dictionary";
-import { Header } from "@/_components/layout/Header";
-import { Footer } from "@/_components/layout/Footer";
+import { Header } from "@/_components/layout/header";
+import { Footer } from "@/_components/layout/footer";
 
 const carlito = Carlito({
     weight: ["400", "700"],
@@ -51,9 +51,13 @@ export default function RootLayout({
     return (
         <html lang={params.lang}>
             <body className={carlito.className}>
-                <Header />
-                {children}
-                <Footer lang={params.lang} />
+                <div className="cx-layout">
+                    <Header />
+                    <main className="cx-layout__main text-base md:text-lg">
+                        {children}
+                    </main>
+                    <Footer lang={params.lang} />
+                </div>
             </body>
         </html>
     );

@@ -1,7 +1,8 @@
 import parse from "html-react-parser";
 import dompurify from "isomorphic-dompurify";
-import { fetchFooterContacts } from "@/app//_lib/data";
+import { fetchFooterContacts } from "@/app/_lib/data";
 import { FooterContactsProps } from "@/app/_lib/types";
+import PageSection from "@/_components/layout/pageSection";
 
 
 type FooterProps = {
@@ -14,7 +15,7 @@ export async function Footer(props: FooterProps) {
     const sanitizer = dompurify.sanitize;
 
     return (
-        <footer className="footer bg-neutral-800 text-neutral-50 p-6">
+        <PageSection className="cx-layout__footer" bgColor="dark" fullHeight>
             Footer Footer Footer Footer Footer Footer
             {data.office_contact?.map(
                     (office_contact) => {
@@ -38,6 +39,6 @@ export async function Footer(props: FooterProps) {
             <div className="text-cyan-400">
                 Footer Footer Footer Footer Footer
             </div>
-        </footer>
+        </PageSection>
     )
 }
