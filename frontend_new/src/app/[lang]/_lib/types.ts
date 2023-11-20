@@ -17,6 +17,31 @@ export type MainPageProps = {
     };
 };
 
+export type CaseProps = {
+    id: number;
+    attributes: {
+        name: string,
+        preview_text: string,
+        detail_text: string,
+        locale: string,
+        code: string,
+        sort: number,
+        preview_image?: {
+            data: {
+                attributes: {
+                    url: string,
+                    width: number,
+                    height: number
+                }
+            }
+        }
+    }
+}
+
+export type CasesProps {
+    data: CaseProps[];
+}
+
 export type FooterContactsProps = {
     id: number,
     title: string,

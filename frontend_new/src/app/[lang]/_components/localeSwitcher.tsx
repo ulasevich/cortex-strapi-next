@@ -24,7 +24,7 @@ export default function LocaleSwitcher() {
     return (
         <>
             <p>Locale switcher:</p>
-            <select onChange={langChange} value={params.lang}>
+            <select onChange={langChange} value={params.lang} className="text-neutral-900">
                 {i18n.locales.map((locale) => {
                     return (
                         <option 

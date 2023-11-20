@@ -38,3 +38,21 @@ export async function fetchFooterContacts(locale: string) {
         throw new Error("Failed to fetch revenue data.");
     }
 }
+
+export async function fetchCases(locale: string) {
+    try {
+        const query = qs.stringify(
+            {
+                fields: ["name", "preview_text", "locale", "code", "sort"],
+                populate: ["preview_image"],
+                locale: locale,
+            },
+            { encodeValuesOnly: true }
+        );
+        const CasesResponse = await fetcher(STRAPI_URL + "/projects?" + query);
+        return CasesResponse; // flattenAttributes
+    } catch (error) {
+        console.error("Database Error:", error);
+        throw new Error("Failed to fetch revenue data.");
+    }
+}
