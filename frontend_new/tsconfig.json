@@ -22,9 +22,9 @@
     "paths": {
       "@/*": ["./*"],
       "@/src/*": ["src/*"],
-      "@/app/*": ["src/app/[lang]/*"],
-      "@/styles/*": ["src/app/[lang]/_assets/styles/*"],
-      "@/_components/*": ["src/app/[lang]/_components/*"]
+      "@/app/*": ["src/app/[locale]/*"],
+      "@/styles/*": ["src/app/[locale]/_assets/styles/*"],
+      "@/_components/*": ["src/app/[locale]/_components/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "**/*.css", "**/*.scss"],

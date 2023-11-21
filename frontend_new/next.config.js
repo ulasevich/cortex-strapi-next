@@ -1,5 +1,7 @@
-/** @type {import('next').NextConfig} */
+// @ts-check
+const withNextIntl = require('next-intl/plugin')();
 
+/** @type {import('next').NextConfig} */
 const nextConfig = {
     reactStrictMode: true, // может быть нужен для dev режима, может производить рендер 2 раза
     output: 'standalone',
@@ -10,6 +12,6 @@ const nextConfig = {
             },
         ],
     },
-}
+};
 
-module.exports = nextConfig
+module.exports = withNextIntl(nextConfig);

@@ -16,7 +16,6 @@ const CasesList: FC<CasesListProps> = ({ cases }): React.ReactElement => {
     return (
         <div className="row projects-row">
             {cases.data.map((caseStudy: CaseProps) => {
-                console.log(process.env.NEXT_PUBLIC_STRAPI_URL);
                 return (
                     <div className="col-md-4 col-sm-6 projects-row__item" key={caseStudy.id}>
                         <div className="projects-item-content">

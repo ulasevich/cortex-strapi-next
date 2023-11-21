@@ -6,12 +6,12 @@ import PageSection from "@/_components/layout/pageSection";
 
 
 type FooterProps = {
-    lang: string
+    locale: string
 }
 
 export async function Footer(props: FooterProps) {
-    const data:FooterContactsProps = await fetchFooterContacts(props.lang);
-    console.log("Footer", data);
+    const data:FooterContactsProps = await fetchFooterContacts(props.locale);
+    //console.log("Footer", data);
     const sanitizer = dompurify.sanitize;
 
     return (
