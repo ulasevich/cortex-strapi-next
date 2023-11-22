@@ -16,12 +16,12 @@
     "isomorphic-dompurify": "^1.9.0",
     "negotiator": "^0.6.3",
     "next": "14.0.2",
-    "next-intl": "^3.1.2",
     "qs": "^6.11.2",
     "react": "^18",
     "react-dom": "^18",
     "react-hook-form": "^7.48.2",
-    "sass": "^1.69.5"
+    "sass": "^1.69.5",
+    "server-only": "^0.0.1"
   },
   "devDependencies": {
     "@types/negotiator": "^0.6.3",

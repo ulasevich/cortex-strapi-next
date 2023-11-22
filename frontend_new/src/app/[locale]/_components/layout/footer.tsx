@@ -3,33 +3,34 @@ import dompurify from "isomorphic-dompurify";
 import { fetchFooterContacts } from "@/app/_lib/data";
 import { FooterContactsProps } from "@/app/_lib/types";
 import PageSection from "@/_components/layout/pageSection";
+import { Locale } from "@/i18n-config";
 
 
 type FooterProps = {
-    locale: string
+    locale: Locale
 }
 
 export async function Footer(props: FooterProps) {
     const data:FooterContactsProps = await fetchFooterContacts(props.locale);
-    //console.log("Footer", data);
+    console.log("Footer", data);
     const sanitizer = dompurify.sanitize;
 
     return (
         <PageSection className="cx-layout__footer" bgColor="dark" fullHeight>
             Footer Footer Footer Footer Footer Footer
             {data.office_contact?.map(
-                    (office_contact) => {
-                        return (
-                            <div
-                                className="m-4"
-                                key={office_contact.id}
-                            >
-                                <h4>{office_contact.title}</h4>
-                                {parse(sanitizer(office_contact.address))}
-                            </div>
-                        );
-                    }
-                )}
+                (office_contact) => {
+                    return (
+                        <div
+                            className="m-4"
+                            key={office_contact.id}
+                        >
+                            <h4>{office_contact.title}</h4>
+                            {parse(sanitizer(office_contact.address))}
+                        </div>
+                    );
+                }
+            )}
             <div className="bg-slate-700">
                 Footer Footer Footer Footer Footer
             </div>

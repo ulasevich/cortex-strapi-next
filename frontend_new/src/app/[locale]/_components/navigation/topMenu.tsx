@@ -5,7 +5,7 @@ import { usePathname, useParams } from "next/navigation";
 
 const TopMenu = () => {
     const currentRoute = usePathname();
-    let locale = useParams()?.lang;
+    let locale = useParams()?.locale;
     //console.log(currentRoute, locale);
 
     return (

@@ -1,65 +1,34 @@
 import Image from "next/image";
-import { notFound } from "next/navigation";
 import { Locale } from '@/i18n-config';
 import parse from "html-react-parser";
 import dompurify from "isomorphic-dompurify";
 import { getDictionary } from '@/get-dictionary';
 import { fetchMainPage, fetchCases } from "@/app/_lib/data";
+import { MainPageProps, CasesProps } from "@/app/_lib/types";
 import PageSection from "@/_components/layout/pageSection";
 import CasesList from "@/_components/list/casesList";
-import { MainPageProps, CasesProps } from "@/app/_lib/types";
-import { getTranslations } from "next-intl/server";
-import {unstable_setRequestLocale} from 'next-intl/server';
-import { locales } from "@/src/config";
-
-
 
 export default async function Home({
-    params: { locale }
+    params: { locale },
 }: {
     params: { locale: Locale }
 }) {
-    //const dictionary = await getDictionary(lang);
-
-    // Validate that the incoming `locale` parameter is valid
-    const isValidLocale = locales.some((cur) => cur === locale);
-    if (!isValidLocale) notFound();
-
-    // Enable static rendering
-    unstable_setRequestLocale(locale);
-
-    //const t = getTranslations('heading');
-    const t = await getTranslations({locale, namespace: 'heading'});
-
-    //const dataMainPage:MainPageProps = await fetchMainPage(lang);
-    //const dataCases:CasesProps = await fetchCases(lang);
-
-    let dataMainPage: MainPageProps;
-    let dataCases: CasesProps;
-
-    try{
-        [dataMainPage, dataCases] = await Promise.all([
-            fetchMainPage(locale),
-            fetchCases(locale),
-        ]);
-    } 
-    catch(e){
-        console.log('Home page error')
-        notFound()
-    }
+    const dictionary = await getDictionary(locale);
+    const dataMainPage:MainPageProps = await fetchMainPage(locale);
+    const dataCases:CasesProps = await fetchCases(locale);
 
     const sanitizer = dompurify.sanitize;
 
     return (
         <>
             <PageSection fullHeight>
-                <p>Site name: {t('cortex')}</p>
-                <p>Current locale: {locale} </p>
+                <p>Site name: {dictionary.heading.cortex}</p>
+                <p>Current locale: {locale}</p>
                 <h1 className="text-orange-600 py-7">{parse(sanitizer(dataMainPage.title))}</h1>
                 <div>{parse(sanitizer(dataMainPage.detail_text))}</div>
                 <br/><br/>
                 <div dangerouslySetInnerHTML={{__html: dataMainPage.detail_text}} />
-                <div>
+                <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px] z-[-1]">
                     <Image
                         //className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
                         src="/next.svg"

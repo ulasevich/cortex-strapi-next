@@ -1,9 +1,13 @@
-import { Locale } from '@/i18n-config';
+import PageSection from '@/_components/layout/pageSection';
 
 export default async function Page({
     params
 }: {
-    params: { lang: Locale, slug: string }
+    params: { locale: string, slug: string }
 }) {
-    return <div>My Post: {params.slug} {params.lang}</div>
+    return (
+        <PageSection fullHeight>
+            <div>My Post: {params.slug} {params.locale}</div>
+        </PageSection>
+    )
 }

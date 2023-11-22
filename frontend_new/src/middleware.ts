@@ -2,11 +2,7 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { match as matchLocale } from "@formatjs/intl-localematcher";
 import Negotiator from "negotiator";
-
 import { i18n } from "@/i18n-config";
-
-import createMiddleware from 'next-intl/middleware';
-import { Pathnames } from 'next-intl/navigation';
 
 
 function getLocale(request: NextRequest): string | undefined {
@@ -27,45 +23,9 @@ function getLocale(request: NextRequest): string | undefined {
     return locale;
 }
 
+
 const PUBLIC_FILE = /\.(.*)$/;
 
-
-/** */
-const locales = ['en', 'ru'] as const;
-
-const pathnames = {
-    '/': '/',
-    '/pathnames': {
-      en: '/pathnames',
-      ru: '/pfadnamen'
-    }
-} satisfies Pathnames<typeof locales>;
-
-export default createMiddleware({
-    // A list of all locales that are supported
-    locales: ['en', 'ru'],
-   
-    // Used when no locale matches
-    defaultLocale: 'en',
-    //pathnames,
-    localePrefix: 'as-needed'
-});
-   
-export const config = {
-    // Match only internationalized pathnames
-    matcher: [
-        // Match all pathnames except for
-        // - … if they start with `/api`, `/_next` or `/_vercel`
-        // - … the ones containing a dot (e.g. `favicon.ico`)
-        '/((?!api|_next|_vercel|.*\\..*).*)',
-        // Match all pathnames within `/users`, optionally with a locale prefix
-        '/(.+)?/promo/(.+)'
-    ]
-};
-
-
-
-/** 
 export function middleware(request: NextRequest) {
     if (PUBLIC_FILE.test(request.nextUrl.pathname)) return; // чтобы нормально работали запросы к статике в папке public
 
@@ -120,5 +80,3 @@ export const config = {
     // Matcher ignoring `/_next/` and `/api/`
     matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)"],
 };
-
-*/
