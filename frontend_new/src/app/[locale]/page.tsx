@@ -1,19 +1,19 @@
 import Image from "next/image";
-import { Locale } from '@/i18n-config';
 import parse from "html-react-parser";
 import dompurify from "isomorphic-dompurify";
-import { getDictionary } from '@/get-dictionary';
-import { fetchMainPage, fetchCases } from "@/app/_lib/data";
-import { MainPageProps, CasesProps } from "@/app/_lib/types";
-import PageSection from "@/_components/layout/pageSection";
-import CasesList from "@/_components/list/casesList";
+import { LocaleTypes } from "@/i18n/settings";
+import { createTranslation } from '@/i18n/server';
+import { fetchMainPage, fetchCases } from "@/lib/data";
+import { MainPageProps, CasesProps } from "@/lib/types";
+import PageSection from "@/components/layout/pageSection";
+import CasesList from "@/components/list/casesList";
 
 export default async function Home({
     params: { locale },
 }: {
-    params: { locale: Locale }
+    params: { locale: LocaleTypes }
 }) {
-    const dictionary = await getDictionary(locale);
+    const {t} = await createTranslation(locale, "common");
     const dataMainPage:MainPageProps = await fetchMainPage(locale);
     const dataCases:CasesProps = await fetchCases(locale);
 
@@ -22,7 +22,7 @@ export default async function Home({
     return (
         <>
             <PageSection fullHeight>
-                <p>Site name: {dictionary.heading.cortex}</p>
+                <p>Site name: {t("heading.cortex")}</p>
                 <p>Current locale: {locale}</p>
                 <h1 className="text-orange-600 py-7">{parse(sanitizer(dataMainPage.title))}</h1>
                 <div>{parse(sanitizer(dataMainPage.detail_text))}</div>

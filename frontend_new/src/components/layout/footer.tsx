@@ -1,18 +1,18 @@
 import parse from "html-react-parser";
 import dompurify from "isomorphic-dompurify";
-import { fetchFooterContacts } from "@/app/_lib/data";
-import { FooterContactsProps } from "@/app/_lib/types";
-import PageSection from "@/_components/layout/pageSection";
-import { Locale } from "@/i18n-config";
+import { fetchFooterContacts } from "@/lib/data";
+import { FooterContactsProps } from "@/lib/types";
+import PageSection from "@/components/layout/pageSection";
+import { LocaleTypes } from "@/i18n/settings";
 
 
 type FooterProps = {
-    locale: Locale
+    locale: LocaleTypes
 }
 
 export async function Footer(props: FooterProps) {
     const data:FooterContactsProps = await fetchFooterContacts(props.locale);
-    console.log("Footer", data);
+    //console.log("Footer", data);
     const sanitizer = dompurify.sanitize;
 
     return (

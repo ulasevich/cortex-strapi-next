@@ -1,6 +1,6 @@
 import { Locale } from '@/i18n-config';
 import { getDictionary } from '@/get-dictionary';
-import PageSection from "@/_components/layout/pageSection";
+import PageSection from "@/components/layout/pageSection";
 
 export default async function CasesPage({
     params: { locale },

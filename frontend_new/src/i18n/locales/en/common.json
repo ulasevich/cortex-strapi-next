@@ -1,0 +1,12 @@
+{
+    "lang": {
+        "en": "English",
+	    "ru": "Russian"
+    },
+    "heading": {
+        "cortex": "Cortex"
+    },
+    "control": {
+        "know_more": "Know more"
+    }
+}

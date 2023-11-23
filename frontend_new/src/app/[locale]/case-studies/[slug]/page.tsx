@@ -1,4 +1,4 @@
-import PageSection from '@/_components/layout/pageSection';
+import PageSection from '@/components/layout/pageSection';
 
 export default async function Page({
     params

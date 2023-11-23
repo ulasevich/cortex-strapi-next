@@ -1,10 +1,10 @@
 import { Metadata } from 'next';
-import { Locale, i18n } from '@/i18n-config';
+import { locales, LocaleTypes } from "@/i18n/settings";
+import { createTranslation } from '@/i18n/server';
 import { Carlito } from "next/font/google";
 import "@/styles/globals.scss";
-import { getDictionary } from "@/get-dictionary";
-import { Header } from "@/_components/layout/header";
-import { Footer } from "@/_components/layout/footer";
+import { Header } from "@/components/layout/header";
+import { Footer } from "@/components/layout/footer";
 
 const carlito = Carlito({
     weight: ["400", "700"],
@@ -13,19 +13,21 @@ const carlito = Carlito({
 });
 
 export async function generateStaticParams() {
-    return i18n.locales.map((locale) => ({ locale: locale }))
+    return locales.map((locale) => ({ locale: locale }))
 }
 
 type MetadataProps = {
-    params: { locale: Locale }
+    params: { locale: LocaleTypes }
 }
 
 export async function generateMetadata(
     { params }: MetadataProps): Promise<Metadata> {
-    const dictionary = await getDictionary(params.locale);
+
+    const {t} = await createTranslation(params.locale, "meta");
+
     return {
-        title: dictionary.meta.title,
-        description: dictionary.meta.description,
+        title: t("title"),
+        description: t("description"),
         icons: {
             icon: "/favicon/favicon.svg",
             shortcut: "/favicon/favicon.ico",
@@ -33,7 +35,7 @@ export async function generateMetadata(
         },
         manifest: '/manifest.json',
         appleWebApp: {
-            title: dictionary.meta.title,
+            title: t("title"),
             statusBarStyle: "black-translucent"
         }
     }
@@ -44,15 +46,13 @@ export default function RootLayout({
     params
 }: {
     children: React.ReactNode,
-    params: { locale: Locale }
+    params: { locale: LocaleTypes }
 }) {
-    
-
     return (
         <html lang={params.locale}>
             <body className={carlito.className}>
                 <div className="cx-layout">
-                    <Header locale={params.locale} />
+                    <Header />
                     <main className="cx-layout__main text-base md:text-lg">
                         {children}
                     </main>

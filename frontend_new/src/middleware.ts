@@ -1,27 +1,5 @@
-import { NextResponse } from "next/server";
-import type { NextRequest } from "next/server";
-import { match as matchLocale } from "@formatjs/intl-localematcher";
-import Negotiator from "negotiator";
-import { i18n } from "@/i18n-config";
-
-
-function getLocale(request: NextRequest): string | undefined {
-    // Negotiator expects plain object so we need to transform headers
-    const negotiatorHeaders: Record<string, string> = {};
-    request.headers.forEach((value, key) => (negotiatorHeaders[key] = value));
-
-    // @ts-ignore locales are readonly
-    const locales: string[] = i18n.locales;
-
-    // Use negotiator and intl-localematcher to get best locale
-    let languages = new Negotiator({ headers: negotiatorHeaders }).languages(
-        locales
-    );
-
-    const locale = matchLocale(languages, locales, i18n.defaultLocale);
-
-    return locale;
-}
+import { NextResponse, NextRequest } from "next/server";
+import { fallbackLng, locales } from "@/i18n/settings";
 
 
 const PUBLIC_FILE = /\.(.*)$/;
@@ -29,54 +7,46 @@ const PUBLIC_FILE = /\.(.*)$/;
 export function middleware(request: NextRequest) {
     if (PUBLIC_FILE.test(request.nextUrl.pathname)) return; // чтобы нормально работали запросы к статике в папке public
 
-    let response;
-    let nextLocale;
-
-    const { locales, defaultLocale } = i18n;
-
+    // Check if there is any supported locale in the pathname
     const pathname = request.nextUrl.pathname;
 
-    const pathLocale = locales.find(
-        (locale) =>
-            pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
-    );
-
-    if (pathLocale) {
-        const isDefaultLocale = pathLocale === defaultLocale;
-        if (isDefaultLocale) {
-            let pathWithoutLocale =
-                pathname.slice(`/${pathLocale}`.length) || "/";
-            if (request.nextUrl.search)
-                pathWithoutLocale += request.nextUrl.search;
-
-            response = NextResponse.redirect(
-                new URL(pathWithoutLocale, request.url)
-            );
-        }
-        nextLocale = pathLocale;
-    } else {
-        const isFirstVisit = !request.cookies.has("NEXT_LOCALE");
-
-        const locale = isFirstVisit ? getLocale(request) : request.cookies.get("NEXT_LOCALE")?.value;
-        let newPath = `${locale}${pathname}`;
-
-        if (request.nextUrl.search) newPath += request.nextUrl.search;
-
-        response =
-            locale === defaultLocale
-                ? NextResponse.rewrite(new URL(newPath, request.url))
-                : NextResponse.redirect(new URL(newPath, request.url));
-        nextLocale = locale;
+    // Check if the default locale is in the pathname
+    if (
+        pathname.startsWith(`/${fallbackLng}/`) ||
+        pathname === `/${fallbackLng}`
+    ) {
+        // e.g. incoming request is /en/about
+        // The new URL is now /about
+        return NextResponse.redirect(
+            new URL(
+                pathname.replace(
+                    `/${fallbackLng}`,
+                    pathname === `/${fallbackLng}` ? "/" : ""
+                ),
+                request.url
+            )
+        );
     }
 
-    if (!response) response = NextResponse.next();
+    const pathnameIsMissingLocale = locales.every(
+        (locale) =>
+            !pathname.startsWith(`/${locale}/`) && pathname !== `/${locale}`
+    );
 
-    if (nextLocale) response.cookies.set("NEXT_LOCALE", nextLocale);
+    if (pathnameIsMissingLocale) {
+        // We are on the default locale
+        // Rewrite so Next.js understands
 
-    return response;
+        // e.g. incoming request is /about
+        // Tell Next.js it should pretend it's /en/about
+        return NextResponse.rewrite(
+            new URL(`/${fallbackLng}${pathname}`, request.url)
+        );
+    }
 }
 
 export const config = {
-    // Matcher ignoring `/_next/` and `/api/`
-    matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)"],
+    // Do not run the middleware on the following paths
+    matcher:
+        "/((?!api|_next/static|_next/image|manifest.json|assets|favicon.ico).*)",
 };

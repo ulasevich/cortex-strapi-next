@@ -1,6 +1,6 @@
 import qs from "qs";
 
-import { fetcher, flattenAttributes } from "@/app/_lib/utils";
+import { fetcher, flattenAttributes } from "@/lib/utils";
 
 const STRAPI_URL = process.env.NEXT_PUBLIC_API_URL;
 

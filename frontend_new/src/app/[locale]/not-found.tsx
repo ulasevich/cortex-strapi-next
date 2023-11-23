@@ -1,22 +1,37 @@
-//"use client"
-import { useParams } from 'next/navigation';
+"use client"
+
 import Link from 'next/link';
-import { Locale } from '@/i18n-config';
-//import { getDictionary } from "@/get-dictionary";
-import PageSection from '@/_components/layout/pageSection';
-import Block404 from '@/_components/error/block404';
+import { useParams } from 'next/navigation';
+import { LocaleTypes } from '@/i18n/settings';
+import { useTranslation } from '@/i18n/client';
+import PageSection from '@/components/layout/pageSection';
+import { Metadata } from 'next';
 
+export const metadata: Metadata = {
+    title: 'Not Found',
+};
 
-export default async function NotFound() {
-    //let locale = useParams()?.locale as Locale;
-    //const dictionary = await getDictionary(locale);
+// type MetadataProps = {
+//     params: { locale: LocaleTypes }
+// }
+
+// export async function generateMetadata(
+//     { params }: MetadataProps): Promise<Metadata> {
+
+//     return {
+//         title: 'Not Found',
+//     }
+// };
+
+export default function NotFound() {
+    let locale = useParams()?.locale as LocaleTypes;
+    const {t} = useTranslation(locale, "error");
 
     return (
         <PageSection fullHeight className="text-center">
-            {/* <h1 className="text-2xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight">{dictionary.error.page_not_found}</h1>
+            <h1 className="text-2xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight">{t("page_not_found")}</h1>
             <p>Could not find requested resource</p>
-            <Link href="/">{dictionary.error.return_home}</Link> */}
-            <Block404 />
+            <Link href="/">{t("return_home")}</Link>
         </PageSection>
     )
 }
