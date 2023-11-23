@@ -3,7 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import parse from "html-react-parser";
 import dompurify from "isomorphic-dompurify";
-import { CaseProps, CasesProps } from "@/app/_lib/types";
+import { CaseProps, CasesProps } from "@/lib/types";
 
 type CasesListProps = {
     cases: CasesProps
@@ -11,7 +11,7 @@ type CasesListProps = {
 
 const CasesList: FC<CasesListProps> = ({ cases }): React.ReactElement => {
     const sanitizer = dompurify.sanitize;
-    console.log("cases", cases);
+    //console.log("cases", cases);
 
     return (
         <div className="row projects-row">

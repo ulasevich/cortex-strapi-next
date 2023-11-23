@@ -4,6 +4,7 @@ export const fallbackLng = "en";
 export const locales = [fallbackLng, "ru"] as const;
 export type LocaleTypes = (typeof locales)[number];
 export const defaultNS = "common";
+export const cookieName = 'i18next';
 
 export function getOptions(lang = fallbackLng, ns = defaultNS): InitOptions {
     return {
@@ -13,6 +14,6 @@ export function getOptions(lang = fallbackLng, ns = defaultNS): InitOptions {
         lng: lang,
         fallbackNS: defaultNS,
         defaultNS,
-        ns,
+        ns
     };
 }

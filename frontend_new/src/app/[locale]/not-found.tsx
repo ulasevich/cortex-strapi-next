@@ -9,6 +9,8 @@ import { Metadata } from 'next';
 
 export const metadata: Metadata = {
     title: 'Not Found',
+    description: "description",
+    robots: "noindex, nofollow"
 };
 
 // type MetadataProps = {
