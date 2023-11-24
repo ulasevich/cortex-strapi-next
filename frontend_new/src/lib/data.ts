@@ -23,6 +23,7 @@ export async function fetchMainPage(locale: string) {
 }
 
 export async function fetchFooterContacts(locale: string) {
+    console.log("fetchFooterContacts", locale);
     try {
         const query = qs.stringify(
             {
