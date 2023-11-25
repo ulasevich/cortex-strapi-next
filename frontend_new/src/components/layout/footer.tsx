@@ -11,14 +11,13 @@ type FooterProps = {
 }
 
 export async function Footer(props: FooterProps) {
-    const data:FooterContactsProps = await fetchFooterContacts(props.locale);
+    const dataFooter:FooterContactsProps = await fetchFooterContacts(props.locale);
     //console.log("Footer", data);
     const sanitizer = dompurify.sanitize;
 
     return (
-        <PageSection className="cx-layout__footer" bgColor="dark" fullHeight>
-            Footer Footer Footer Footer Footer Footer
-            {data.office_contact?.map(
+        <PageSection className="cx-layout__footer" bgColor="dark" fullHeight bgCover={dataFooter.data.attributes.footer_bg.data}>
+            {dataFooter.data.attributes.office_contact?.map(
                 (office_contact) => {
                     return (
                         <div
@@ -31,15 +30,6 @@ export async function Footer(props: FooterProps) {
                     );
                 }
             )}
-            <div className="bg-slate-700">
-                Footer Footer Footer Footer Footer
-            </div>
-            <div className="bg-indigo-700 text-orange-400">
-                Footer Footer Footer Footer Footer
-            </div>
-            <div className="text-cyan-400">
-                Footer Footer Footer Footer Footer
-            </div>
         </PageSection>
     )
 }

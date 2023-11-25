@@ -14,7 +14,7 @@ export async function fetcher(url: string, options = {}) {
     return data;
 }
 
-export function flattenAttributes(data: any): any {
+export function flattenAttributes(data: any): any { // deprecated
     // Base case for recursion
     if (!data) return null;
 

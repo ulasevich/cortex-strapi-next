@@ -1,6 +1,6 @@
 import qs from "qs";
 
-import { fetcher, flattenAttributes } from "@/lib/utils";
+import { fetcher } from "@/lib/utils";
 
 const STRAPI_URL = process.env.NEXT_PUBLIC_API_URL;
 
@@ -15,7 +15,7 @@ export async function fetchMainPage(locale: string) {
             { encodeValuesOnly: true }
         );
         const MainPageResponse = await fetcher(STRAPI_URL + "/main-page?" + query);
-        return flattenAttributes(MainPageResponse);
+        return MainPageResponse;
     } catch (error) {
         console.error("Database Error:", error);
         throw new Error("Failed to fetch revenue data.");
@@ -23,7 +23,6 @@ export async function fetchMainPage(locale: string) {
 }
 
 export async function fetchFooterContacts(locale: string) {
-    console.log("fetchFooterContacts", locale);
     try {
         const query = qs.stringify(
             {
@@ -33,7 +32,7 @@ export async function fetchFooterContacts(locale: string) {
             { encodeValuesOnly: true }
         );
         const FooterContactsResponse = await fetcher(STRAPI_URL + "/footer?" + query);
-        return flattenAttributes(FooterContactsResponse);
+        return FooterContactsResponse;
     } catch (error) {
         console.error("Database Error:", error);
         throw new Error("Failed to fetch revenue data.");
@@ -52,6 +51,24 @@ export async function fetchCases(locale: string) {
         );
         const CasesResponse = await fetcher(STRAPI_URL + "/projects?" + query);
         return CasesResponse; // flattenAttributes
+    } catch (error) {
+        console.error("Database Error:", error);
+        throw new Error("Failed to fetch revenue data.");
+    }
+}
+
+export async function fetchServices(locale: string) {
+    try {
+        const query = qs.stringify(
+            {
+                fields: ["name", "preview_text", "locale", "sort"],
+                populate: ["preview_image"],
+                locale: locale,
+            },
+            { encodeValuesOnly: true }
+        );
+        const ServicesResponse = await fetcher(STRAPI_URL + "/our-services?" + query);
+        return ServicesResponse;
     } catch (error) {
         console.error("Database Error:", error);
         throw new Error("Failed to fetch revenue data.");

@@ -3,10 +3,11 @@ import parse from "html-react-parser";
 import dompurify from "isomorphic-dompurify";
 import { LocaleTypes } from "@/i18n/settings";
 import { createTranslation } from '@/i18n/server';
-import { fetchMainPage, fetchCases } from "@/lib/data";
-import { MainPageProps, CasesProps } from "@/lib/types";
+import { fetchMainPage, fetchCases, fetchServices } from "@/lib/data";
+import { MainPageProps, CasesProps, ServicesProps } from "@/lib/types";
 import PageSection from "@/components/layout/pageSection";
 import CasesList from "@/components/list/casesList";
+import ServicesList from "@/components/list/servicesList";
 
 export default async function Home({
     params: { locale },
@@ -16,18 +17,18 @@ export default async function Home({
     const {t} = await createTranslation(locale, "common");
     const dataMainPage:MainPageProps = await fetchMainPage(locale);
     const dataCases:CasesProps = await fetchCases(locale);
+    const dataServices:ServicesProps = await fetchServices(locale);
 
     const sanitizer = dompurify.sanitize;
 
     return (
         <>
-            <PageSection fullHeight>
+            <PageSection fullHeight bgCover={dataMainPage.data.attributes.main_bg.data} textWhite>
                 <p>Site name: {t("heading.cortex")}</p>
                 <p>Current locale: {locale}</p>
-                <h1 className="text-orange-600 py-7">{parse(sanitizer(dataMainPage.title))}</h1>
-                <div>{parse(sanitizer(dataMainPage.detail_text))}</div>
+                <h1 className="text-orange-600 py-7">{parse(sanitizer(dataMainPage.data.attributes.title))}</h1>
+                <div>{parse(sanitizer(dataMainPage.data.attributes.detail_text))}</div>
                 <br/><br/>
-                <div dangerouslySetInnerHTML={{__html: dataMainPage.detail_text}} />
                 <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px] z-[-1]">
                     <Image
                         //className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
@@ -39,20 +40,18 @@ export default async function Home({
                     />
                 </div>
             </PageSection>
-            <PageSection>
+            <PageSection wNarrow>
                 <h2>Companies Built</h2>
                 <CasesList cases={dataCases} />
             </PageSection>
-            <PageSection bgColor="yellow">
+            <PageSection wNarrow bgColor="yellow">
                 <h2>Our Services</h2>
+                <ServicesList services={dataServices} />
+            </PageSection>
+            <PageSection>
+                <h2>Why us</h2>
                 <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
                     Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
-                <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
-                    Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
-                    Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
-                    Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
                 <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
                     Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
             </PageSection>

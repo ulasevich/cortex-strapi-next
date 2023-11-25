@@ -10,14 +10,14 @@ function getLocale(request: NextRequest): string | undefined {
     request.headers.forEach((value, key) => (negotiatorHeaders[key] = value));
 
     // @ts-ignore locales are readonly
-    const locales1: string[] = locales;
+    //const locales1: string[] = locales;
 
     // Use negotiator and intl-localematcher to get best locale
     let languages = new Negotiator({ headers: negotiatorHeaders }).languages(
-        locales1
+        locales
     );
 
-    const locale = matchLocale(languages, locales1, fallbackLng);
+    const locale = matchLocale(languages, locales, fallbackLng);
 
     return locale;
 }

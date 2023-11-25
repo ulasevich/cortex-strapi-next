@@ -1,20 +1,27 @@
-export type MainPageProps = {
+export type ImageProps = {
     id: number,
-    title: string,
-    detail_text: string,
-    locale: string,
-    main_logo: {
-        id: number,
+    attributes: {
         url: string,
         width: number,
         height: number
-    };
-    main_bg: {
+    }
+};
+
+export type MainPageProps = {
+    data: {
         id: number,
-        url: string,
-        width: number,
-        height: number
-    };
+        attributes: {
+            title: string,
+            detail_text: string,
+            locale: string,
+            main_logo: {
+                data: ImageProps
+            },
+            main_bg: {
+                data: ImageProps
+            }
+        }
+    }
 };
 
 export type CaseProps = {
@@ -27,34 +34,46 @@ export type CaseProps = {
         code: string,
         sort: number,
         preview_image?: {
-            data: {
-                attributes: {
-                    url: string,
-                    width: number,
-                    height: number
-                }
-            }
+            data: ImageProps
         }
     }
-}
+};
 
-export type CasesProps {
+export type ServicesProps = {
+    data: ServiceProps[];
+};
+
+export type ServiceProps = {
+    id: number;
+    attributes: {
+        name: string,
+        preview_text: string,
+        locale: string,
+        sort: number,
+        preview_image?: {
+            data: ImageProps
+        }
+    }
+};
+
+export type CasesProps = {
     data: CaseProps[];
-}
+};
 
 export type FooterContactsProps = {
-    id: number,
-    title: string,
-    locale: string,
-    footer_bg: {
+    data: {
         id: number,
-        url: string,
-        width: number,
-        height: number
-    },
-    office_contact?: {
-        id: number,
-        title: string,
-        address: string
-    }[];
+        attributes: {
+            title: string,
+            locale: string,
+            footer_bg: {
+                data: ImageProps
+            },
+            office_contact?: {
+                id: number,
+                title: string,
+                address: string
+            }[]
+        }
+    }
 };

@@ -13,20 +13,8 @@ export const metadata: Metadata = {
     robots: "noindex, nofollow"
 };
 
-// type MetadataProps = {
-//     params: { locale: LocaleTypes }
-// }
-
-// export async function generateMetadata(
-//     { params }: MetadataProps): Promise<Metadata> {
-
-//     return {
-//         title: 'Not Found',
-//     }
-// };
-
 export default function NotFound() {
-    let locale = useParams()?.locale as LocaleTypes;
+    const locale = useParams()?.locale as LocaleTypes;
     const {t} = useTranslation(locale, "error");
 
     return (

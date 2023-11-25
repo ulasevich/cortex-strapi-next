@@ -14,13 +14,13 @@ const CasesList: FC<CasesListProps> = ({ cases }): React.ReactElement => {
     //console.log("cases", cases);
 
     return (
-        <div className="row projects-row">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-6">
             {cases.data.map((caseStudy: CaseProps) => {
                 return (
-                    <div className="col-md-4 col-sm-6 projects-row__item" key={caseStudy.id}>
+                    <div className="bg-white rounded-xl shadow-lg p-5 border border-white" key={caseStudy.id}>
                         <div className="projects-item-content">
                             {caseStudy.attributes.preview_image?.data &&
-                            <div className="projects-item-logo">
+                            <div className="text-center mb-5">
                                 <Image 
                                     src={`${process.env.NEXT_PUBLIC_STRAPI_URL}${caseStudy.attributes.preview_image.data.attributes.url}`} 
                                     width={caseStudy.attributes.preview_image.data.attributes.width}

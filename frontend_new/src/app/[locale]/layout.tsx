@@ -52,7 +52,7 @@ export default function RootLayout({
         <html lang={params.locale}>
             <body className={carlito.className}>
                 <div className="cx-layout">
-                    <Header />
+                    <Header locale={params.locale} />
                     <main className="cx-layout__main text-base md:text-lg">
                         {children}
                     </main>
