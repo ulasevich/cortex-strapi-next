@@ -39,8 +39,12 @@ export type CaseProps = {
     }
 };
 
-export type ServicesProps = {
-    data: ServiceProps[];
+export type CasePropsData = {
+    data: CaseProps;
+};
+
+export type CasesPropsData = {
+    data: CaseProps[];
 };
 
 export type ServiceProps = {
@@ -56,8 +60,8 @@ export type ServiceProps = {
     }
 };
 
-export type CasesProps = {
-    data: CaseProps[];
+export type ServicesProps = {
+    data: ServiceProps[];
 };
 
 export type FooterContactsProps = {

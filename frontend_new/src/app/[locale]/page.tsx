@@ -1,6 +1,9 @@
+import { Suspense } from "react";
 import Image from "next/image";
+import { notFound } from "next/navigation";
 import parse from "html-react-parser";
 import dompurify from "isomorphic-dompurify";
+
 import { LocaleTypes } from "@/i18n/settings";
 import { createTranslation } from '@/i18n/server';
 import { fetchMainPage, fetchCases, fetchServices } from "@/lib/data";
@@ -9,16 +12,28 @@ import PageSection from "@/components/layout/pageSection";
 import CasesList from "@/components/list/casesList";
 import ServicesList from "@/components/list/servicesList";
 
+
 export default async function Home({
     params: { locale },
 }: {
     params: { locale: LocaleTypes }
 }) {
-    const {t} = await createTranslation(locale, "common");
-    const dataMainPage:MainPageProps = await fetchMainPage(locale);
-    const dataCases:CasesProps = await fetchCases(locale);
-    const dataServices:ServicesProps = await fetchServices(locale);
+    let dataMainPage:MainPageProps;
+    let dataCases:CasesProps;
+    let dataServices:ServicesProps
 
+    try {
+        dataMainPage = await fetchMainPage(locale);
+        dataCases = await fetchCases(locale);
+        dataServices = await fetchServices(locale);
+    } catch(e) {
+        console.log("MainPage error", e);
+        notFound();
+    }
+
+    
+
+    const {t} = await createTranslation(locale, "common");
     const sanitizer = dompurify.sanitize;
 
     return (
@@ -42,7 +57,9 @@ export default async function Home({
             </PageSection>
             <PageSection wNarrow>
                 <h2>Companies Built</h2>
-                <CasesList cases={dataCases} />
+                <Suspense fallback={<p>Loading feed...</p>}>
+                    <CasesList cases={dataCases} />
+                </Suspense>
             </PageSection>
             <PageSection wNarrow bgColor="yellow">
                 <h2>Our Services</h2>

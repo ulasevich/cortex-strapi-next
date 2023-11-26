@@ -57,6 +57,24 @@ export async function fetchCases(locale: string) {
     }
 }
 
+export async function fetchCaseDetail(locale: string, code: string) {
+    try {
+        const query = qs.stringify(
+            {
+                fields: ["name", "detail_text", "locale", "code", "sort"],
+                populate: "*",
+                locale: locale,
+            },
+            { encodeValuesOnly: true }
+        );
+        const CaseResponse = await fetcher(STRAPI_URL + `/projects/${code}?${query}`);
+        return CaseResponse; // flattenAttributes
+    } catch (error) {
+        console.error("Database Error:", error);
+        throw new Error("Failed to fetch revenue data.");
+    }
+}
+
 export async function fetchServices(locale: string) {
     try {
         const query = qs.stringify(
