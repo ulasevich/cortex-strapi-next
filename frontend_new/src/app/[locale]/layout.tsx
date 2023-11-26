@@ -1,7 +1,10 @@
 import { Metadata } from 'next';
+import NextTopLoader from 'nextjs-toploader';
+import { Carlito } from "next/font/google";
+
 import { locales, LocaleTypes } from "@/i18n/settings";
 import { createTranslation } from '@/i18n/server';
-import { Carlito } from "next/font/google";
+
 import "@/styles/globals.scss";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
@@ -51,6 +54,13 @@ export default function RootLayout({
     return (
         <html lang={params.locale}>
             <body className={carlito.className}>
+                <NextTopLoader
+                    color="#FBBF24"
+                    height={4}
+                    shadow="0 0 10px #FBBF24,0 0 5px #FBBF24"
+                    showSpinner={false}
+                    zIndex={150}
+                />
                 <div className="cx-layout">
                     <Header locale={params.locale} />
                     <main className="cx-layout__main text-base md:text-lg">
