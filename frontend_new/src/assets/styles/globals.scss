@@ -32,3 +32,13 @@ body {
     @apply text-lime-900 font-bold hover:bg-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75;
 }
 
+p {
+    margin: 1em 0;
+    &:first-child {
+        margin-top: 0;
+    }
+    &:last-child {
+        margin-bottom: 0;
+    }
+}
+

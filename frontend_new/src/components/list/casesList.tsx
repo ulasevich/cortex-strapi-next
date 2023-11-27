@@ -20,7 +20,7 @@ const CasesList: FC<CasesListProps> = ({ cases }): React.ReactElement => {
                     <div className="bg-white rounded-xl shadow-lg p-5 border border-white" key={caseStudy.id}>
                         <div className="projects-item-content">
                             {caseStudy.attributes.preview_image?.data &&
-                            <div className="text-center mb-5">
+                            <div className="flex justify-center mb-5">
                                 <Image 
                                     src={`${process.env.NEXT_PUBLIC_STRAPI_URL}${caseStudy.attributes.preview_image.data.attributes.url}`} 
                                     width={caseStudy.attributes.preview_image.data.attributes.width}
@@ -30,12 +30,12 @@ const CasesList: FC<CasesListProps> = ({ cases }): React.ReactElement => {
                             </div>
                             }
                             
-                            <div className="preview_text">
+                            <div className="mb-5">
                                 {parse(sanitizer(caseStudy.attributes.preview_text))} 
                             </div>
                             
-                            <div className="projects-item-detail-link align-center">
-                                <Link href={`/case-studies/${caseStudy.attributes.code}`} className="more-btn">Подробнее</Link>
+                            <div className="text-center">
+                                <Link href={`/case-studies/${caseStudy.attributes.code}`} className="text-amber-400 underline underline-offset-4">Подробнее</Link>
                             </div>
                         </div>
                     </div>

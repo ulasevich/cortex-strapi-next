@@ -11,8 +11,8 @@ type FooterProps = {
 }
 
 export async function Footer(props: FooterProps) {
+    
     const dataFooter:FooterContactsProps = await fetchFooterContacts(props.locale);
-    //console.log("Footer", data);
     const sanitizer = dompurify.sanitize;
 
     return (

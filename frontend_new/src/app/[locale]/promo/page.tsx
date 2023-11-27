@@ -1,7 +1,7 @@
 import { LocaleTypes } from '@/i18n/settings';
-//import { getDictionary } from '@/get-dictionary';
 import { createTranslation } from '@/i18n/server';
 import PageSection from "@/components/layout/pageSection";
+//import "@/styles/no-locale.scss";
 
 
 export default async function LandingPage({

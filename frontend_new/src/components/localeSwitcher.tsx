@@ -19,7 +19,7 @@ export default function LocaleSwitcher() {
     };
 
     return (
-        <select onChange={handleLocaleChange} value={params.locale} className="text-neutral-900">
+        <select onChange={handleLocaleChange} value={params.locale} className="cx-locale-switcher text-neutral-900">
             {locales.map((lang) => (
                 <option key={lang} value={lang}>
                     {lang}
