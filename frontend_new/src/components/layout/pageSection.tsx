@@ -1,7 +1,9 @@
 import { FC, ReactNode } from "react";
 import classNames from "classnames";
 import Image from "next/image";
+
 import { ImageProps } from "@/lib/types";
+
 
 type SectionProps = {
     children: ReactNode,
@@ -41,7 +43,6 @@ const PageSection: FC<SectionProps> = (props) => {
             }
             <div className={containerClass}>
                 {props.children}
-                
             </div>
         </div>
     )

@@ -1,7 +1,11 @@
+"use client"
+
 import { FC } from "react";
 import Image from 'next/image';
 import parse from "html-react-parser";
 import dompurify from "isomorphic-dompurify";
+import { motion } from "framer-motion";
+
 import { ServiceProps, ServicesProps } from "@/lib/types";
 
 type ServicesListProps = {
@@ -10,13 +14,21 @@ type ServicesListProps = {
 
 const ServicesList: FC<ServicesListProps> = ({ services }): React.ReactElement => {
     const sanitizer = dompurify.sanitize;
-    //console.log("cases", cases);
 
     return (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-6">
             {services.data.map((service: ServiceProps) => {
                 return (
-                    <div className="bg-white rounded-xl shadow-lg p-5 border border-white" key={service.id}>
+                    <motion.div 
+                        className="bg-white rounded-xl shadow-lg p-5 border border-white"
+                        key={service.id}
+                        initial={{ opacity: 0, y: 150 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{
+                            duration: 0.6
+                        }}
+                    >
                         <div className="service-item-content">
                             {service.attributes.preview_image?.data &&
                             <div className="text-center mb-5">
@@ -34,7 +46,7 @@ const ServicesList: FC<ServicesListProps> = ({ services }): React.ReactElement =
                             </div>
                             
                         </div>
-                    </div>
+                    </motion.div>
                 )
             })}
         </div>

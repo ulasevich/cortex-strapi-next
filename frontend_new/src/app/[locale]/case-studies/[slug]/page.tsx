@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import PageSection from '@/components/layout/pageSection';
 import { CasePropsData } from '@/lib/types';
 import { fetchCaseDetail } from '@/src/lib/data';
+import SectionHeading from "@/components/layout/sectionHeading";
 
 
 export default async function Page({
@@ -31,11 +32,11 @@ export default async function Page({
                 </div>
             </PageSection>
             <PageSection id="project-facts" fullHeight>
-                <h2 className="text-2xl font-bold mb-3">Project facts</h2>
+                <SectionHeading>Project facts</SectionHeading>
                 <div>project_facts</div>
             </PageSection>
             <PageSection id="cortex-role">
-                <h2 className="text-2xl font-bold mb-3">Cortex role</h2>
+                <SectionHeading>Cortex role</SectionHeading>
                 <div>cortex_role</div>
             </PageSection>
         </>

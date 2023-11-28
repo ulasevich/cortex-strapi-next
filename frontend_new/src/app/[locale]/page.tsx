@@ -7,10 +7,11 @@ import dompurify from "isomorphic-dompurify";
 import { LocaleTypes } from "@/i18n/settings";
 import { createTranslation } from '@/i18n/server';
 import { fetchMainPage, fetchCases, fetchServices } from "@/lib/data";
-import { MainPageProps, CasesProps, ServicesProps } from "@/lib/types";
+import { MainPageProps, CasesPropsData, ServicesProps } from "@/lib/types";
 import PageSection from "@/components/layout/pageSection";
 import CasesList from "@/components/list/casesList";
 import ServicesList from "@/components/list/servicesList";
+import SectionHeading from "@/components/layout/sectionHeading";
 
 
 export default async function Home({
@@ -19,7 +20,7 @@ export default async function Home({
     params: { locale: LocaleTypes }
 }) {
     let dataMainPage:MainPageProps;
-    let dataCases:CasesProps;
+    let dataCases:CasesPropsData;
     let dataServices:ServicesProps
 
     try {
@@ -57,47 +58,49 @@ export default async function Home({
                 </div>
             </PageSection>
             <PageSection wNarrow>
-                <h2>Companies Built</h2>
+                <SectionHeading>Companies Built</SectionHeading>
                 <Suspense fallback={<p>Loading feed...</p>}>
                     <CasesList cases={dataCases} />
                 </Suspense>
             </PageSection>
             <PageSection wNarrow bgColor="yellow">
-                <h2>Our Services</h2>
+                <SectionHeading>Our Services</SectionHeading>
                 <ServicesList services={dataServices} />
             </PageSection>
             <PageSection>
-                <h2>Why us</h2>
-                <table className="default-table">
-                    <thead>
-                        <tr>
-                            <th className="no-bg"></th>
-                            <th className="default-column text-amber-400">Cortex Technology</th>
-                            <th className="default-column">Accelerator or incubator</th>
-                            <th className="default-column">Venture fund</th>
-                            <th className="default-column">Consulting company</th>
-                            <th className="default-column">Software development firm</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td className="default-row-name"> Technology development </td>
-                            <td> <span className="color-green">Yes</span> </td>
-                            <td> <span className="color-red">No</span> </td>
-                            <td> <span className="color-red">No</span> </td>
-                            <td> <span className="color-red">No</span> </td>
-                            <td> <span className="color-green">Yes</span> </td>
-                        </tr>
-                        <tr>
-                            <td className="default-row-name"> Business expertise </td>
-                            <td> <span className="color-green">Yes</span> </td>
-                            <td> <span className="color-green">Yes</span> </td>
-                            <td> <span className="color-orange">Limited</span> </td>
-                            <td> <span className="color-green">Yes</span> </td>
-                            <td> <span className="color-red">No</span> </td>
-                        </tr>
-                    </tbody>
-                </table>
+                <SectionHeading>Why us</SectionHeading>
+                <div className="overflow-auto">
+                    <table className="default-table">
+                        <thead>
+                            <tr>
+                                <th className="no-bg"></th>
+                                <th className="default-column text-amber-400">Cortex Technology</th>
+                                <th className="default-column">Accelerator or incubator</th>
+                                <th className="default-column">Venture fund</th>
+                                <th className="default-column">Consulting company</th>
+                                <th className="default-column">Software development firm</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td className="default-row-name"> Technology development </td>
+                                <td> <span className="color-green">Yes</span> </td>
+                                <td> <span className="color-red">No</span> </td>
+                                <td> <span className="color-red">No</span> </td>
+                                <td> <span className="color-red">No</span> </td>
+                                <td> <span className="color-green">Yes</span> </td>
+                            </tr>
+                            <tr>
+                                <td className="default-row-name"> Business expertise </td>
+                                <td> <span className="color-green">Yes</span> </td>
+                                <td> <span className="color-green">Yes</span> </td>
+                                <td> <span className="color-orange">Limited</span> </td>
+                                <td> <span className="color-green">Yes</span> </td>
+                                <td> <span className="color-red">No</span> </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </PageSection>
             <PageSection>
                 <h2>Our Focus</h2>
