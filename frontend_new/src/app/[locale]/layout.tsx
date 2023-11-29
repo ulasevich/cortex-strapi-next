@@ -53,6 +53,9 @@ export default function RootLayout({
 }) {
     return (
         <html lang={params.locale}>
+            <head>
+                <meta name="view-transition" content="same-origin" />
+            </head>
             <body className={carlito.className}>
                 <NextTopLoader
                     color="#FBBF24"

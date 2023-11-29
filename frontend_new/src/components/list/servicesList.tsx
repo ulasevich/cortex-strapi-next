@@ -20,7 +20,7 @@ const ServicesList: FC<ServicesListProps> = ({ services }): React.ReactElement =
             {services.data.map((service: ServiceProps) => {
                 return (
                     <motion.div 
-                        className="bg-white rounded-xl shadow-lg p-5 border border-white"
+                        className="bg-white rounded-xl shadow-md p-5 border border-neutral-100"
                         key={service.id}
                         initial={{ opacity: 0, y: 150 }}
                         whileInView={{ opacity: 1, y: 0 }}

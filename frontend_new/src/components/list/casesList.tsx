@@ -21,7 +21,7 @@ const CasesList: FC<CasesListProps> = ({ cases }): React.ReactElement => {
             {cases.data.map((caseStudy: CaseProps) => {
                 return (
                     <motion.div 
-                        className="bg-white rounded-xl shadow-lg p-5 border border-white" key={caseStudy.id}
+                        className="bg-white rounded-xl shadow-md p-5 border border-neutral-100" key={caseStudy.id}
                         initial={{ opacity: 0, scale: 0.8 }}
                         whileInView={{ opacity: 1, scale: 1 }}
                         viewport={{ once: true }}
@@ -33,7 +33,8 @@ const CasesList: FC<CasesListProps> = ({ cases }): React.ReactElement => {
                                     src={`${process.env.NEXT_PUBLIC_STRAPI_URL}${caseStudy.attributes.preview_image.data.attributes.url}`} 
                                     width={caseStudy.attributes.preview_image.data.attributes.width}
                                     height={caseStudy.attributes.preview_image.data.attributes.height}
-                                    alt=""
+                                    alt={caseStudy.attributes.name}
+                                    className="cx-view-transition-logo"
                                 />
                             </div>
                             }

@@ -20,5 +20,15 @@ body {
 }
 
 .text-primary1 {
-  @apply text-lime-900 font-bold hover:bg-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75;
+  @apply text-lime-300 font-bold hover:bg-blue-200/[.3];
+}
+
+p {
+  margin: 1em 0;
+}
+p:first-child {
+  margin-top: 0;
+}
+p:last-child {
+  margin-bottom: 0;
 }/*# sourceMappingURL=globals.css.map */
