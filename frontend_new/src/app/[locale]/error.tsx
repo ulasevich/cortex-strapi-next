@@ -1,16 +1,10 @@
-"use client"; // Error components must be Client Components
+'use client';
 
-import { useEffect } from "react";
-import PageSection from "@/components/layout/pageSection";
+import { useEffect } from 'react';
+import PageSection from '@/components/layout/pageSection';
 
-export default function Error({
-    error,
-    reset,
-}: {
-    error: Error & { digest?: string };
-    reset: () => void;
-}) {
-    console.log("Error");
+export default function Error({ error, reset }: { error: Error & { digest?: string }; reset: () => void }) {
+    console.log('Error');
     useEffect(() => {
         // Log the error to an error reporting service
         console.error(error);

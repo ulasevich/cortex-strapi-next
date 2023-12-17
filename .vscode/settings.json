@@ -1,4 +1,9 @@
 {
-    "eslint.enable": false,
-    "eslint.validate": ["javascript", "typescript"]
+    "eslint.validate": ["javascript", "typescript"],
+    "eslint.workingDirectories": [
+        "frontend_new",
+    ],
+    "cSpell.words": [
+        "dompurify"
+    ]
 }

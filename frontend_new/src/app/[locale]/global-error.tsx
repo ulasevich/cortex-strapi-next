@@ -1,25 +1,18 @@
-"use client";
+'use client';
 
-import { useEffect } from "react";
-import PageSection from "@/components/layout/pageSection";
+import { useEffect } from 'react';
+import PageSection from '@/components/layout/pageSection';
 
-
-export default function GlobalError({
-    error,
-    reset,
-}: {
-    error: Error & { digest?: string };
-    reset: () => void;
-}) {
-    console.log("Global Error");
+export default function GlobalError({ error, reset }: { error: Error & { digest?: string }; reset: () => void }) {
+    console.log('Global Error');
     useEffect(() => {
         // Log the error to an error reporting service
-        console.log("error");
+        console.log('error');
         console.error(error);
     }, [error]);
 
     return (
-        <html>
+        <html lang="en">
             <body>
                 <PageSection fullHeight className="text-center">
                     <h2 className="text-2xl">Something went wrong!</h2>

@@ -1,42 +1,42 @@
 export type ImageProps = {
-    id: number,
+    id: number;
     attributes: {
-        url: string,
-        width: number,
-        height: number
-    }
+        url: string;
+        width: number;
+        height: number;
+    };
 };
 
 export type MainPageProps = {
     data: {
-        id: number,
+        id: number;
         attributes: {
-            title: string,
-            detail_text: string,
-            locale: string,
+            title: string;
+            detail_text: string;
+            locale: string;
             main_logo: {
-                data: ImageProps
-            },
+                data: ImageProps;
+            };
             main_bg: {
-                data: ImageProps
-            }
-        }
-    }
+                data: ImageProps;
+            };
+        };
+    };
 };
 
 export type CaseProps = {
     id: number;
     attributes: {
-        name: string,
-        preview_text: string,
-        detail_text: string,
-        locale: string,
-        code: string,
-        sort: number,
+        name: string;
+        preview_text: string;
+        detail_text: string;
+        locale: string;
+        code: string;
+        sort: number;
         preview_image?: {
-            data: ImageProps
-        }
-    }
+            data: ImageProps;
+        };
+    };
 };
 
 export type CasePropsData = {
@@ -50,14 +50,14 @@ export type CasesPropsData = {
 export type ServiceProps = {
     id: number;
     attributes: {
-        name: string,
-        preview_text: string,
-        locale: string,
-        sort: number,
+        name: string;
+        preview_text: string;
+        locale: string;
+        sort: number;
         preview_image?: {
-            data: ImageProps
-        }
-    }
+            data: ImageProps;
+        };
+    };
 };
 
 export type ServicesProps = {
@@ -66,18 +66,18 @@ export type ServicesProps = {
 
 export type FooterContactsProps = {
     data: {
-        id: number,
+        id: number;
         attributes: {
-            title: string,
-            locale: string,
+            title: string;
+            locale: string;
             footer_bg: {
-                data: ImageProps
-            },
+                data: ImageProps;
+            };
             office_contact?: {
-                id: number,
-                title: string,
-                address: string
-            }[]
-        }
-    }
+                id: number;
+                title: string;
+                address: string;
+            }[];
+        };
+    };
 };
