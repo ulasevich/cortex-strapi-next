@@ -4,11 +4,10 @@ import { useEffect } from 'react';
 import PageSection from '@/components/layout/pageSection';
 
 export default function GlobalError({ error, reset }: { error: Error & { digest?: string }; reset: () => void }) {
-    console.log('Global Error');
+    // console.log('Global Error', error);
     useEffect(() => {
         // Log the error to an error reporting service
-        console.log('error');
-        console.error(error);
+        // console.error('error', error);
     }, [error]);
 
     return (

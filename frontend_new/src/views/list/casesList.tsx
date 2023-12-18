@@ -4,7 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import parse from 'html-react-parser';
-import dompurify from 'isomorphic-dompurify';
+import { sanitize } from 'isomorphic-dompurify';
 import { motion } from 'framer-motion';
 import type { CaseProps, CasesPropsData } from '@/lib/types';
 
@@ -13,8 +13,6 @@ type CasesListProps = {
 };
 
 const CasesList = ({ cases }: CasesListProps): React.ReactElement => {
-    const sanitizer = dompurify.sanitize;
-
     return (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-6">
             {cases.data.map((caseStudy: CaseProps) => {
@@ -39,7 +37,7 @@ const CasesList = ({ cases }: CasesListProps): React.ReactElement => {
                                 </div>
                             )}
 
-                            <div className="mb-5">{parse(sanitizer(caseStudy.attributes.preview_text))}</div>
+                            <div className="mb-5">{parse(sanitize(caseStudy.attributes.preview_text))}</div>
 
                             <div className="text-center">
                                 <Link href={`/case-studies/${caseStudy.attributes.code}`} className="text-amber-400 underline underline-offset-4">

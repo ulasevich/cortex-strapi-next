@@ -3,7 +3,7 @@
 import React from 'react';
 import Image from 'next/image';
 import parse from 'html-react-parser';
-import dompurify from 'isomorphic-dompurify';
+import { sanitize } from 'isomorphic-dompurify';
 import { motion } from 'framer-motion';
 import type { ServiceProps, ServicesProps } from '@/lib/types';
 
@@ -12,8 +12,6 @@ type ServicesListProps = {
 };
 
 const ServicesList = ({ services }: ServicesListProps): React.ReactElement => {
-    const sanitizer = dompurify.sanitize;
-
     return (
         <div className="grid   grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-6">
             {services.data.map((service: ServiceProps) => {
@@ -40,7 +38,7 @@ const ServicesList = ({ services }: ServicesListProps): React.ReactElement => {
                                 </div>
                             )}
 
-                            <div className="preview_text">{parse(sanitizer(service.attributes.preview_text))}</div>
+                            <div className="preview_text">{parse(sanitize(service.attributes.preview_text))}</div>
                         </div>
                     </motion.div>
                 );

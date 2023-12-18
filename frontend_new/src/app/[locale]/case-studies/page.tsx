@@ -10,7 +10,7 @@ export default async function CasesPage({ params: { locale } }: { params: { loca
     try {
         dataCases = await fetchCases(locale);
     } catch (e) {
-        console.log('MainPage error', e);
+        // console.log('MainPage error', e);
         notFound();
     }
     return (

@@ -2,7 +2,7 @@ import { Suspense } from 'react';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import parse from 'html-react-parser';
-import dompurify from 'isomorphic-dompurify';
+import { sanitize } from 'isomorphic-dompurify';
 import type { LocaleTypes } from '@/i18n/settings';
 import { createTranslation } from '@/i18n/server';
 import { fetchMainPage, fetchCases, fetchServices } from '@/lib/data';
@@ -22,12 +22,11 @@ export default async function Home({ params: { locale } }: { params: { locale: L
         dataCases = await fetchCases(locale);
         dataServices = await fetchServices(locale);
     } catch (e) {
-        console.log('MainPage error', e);
+        // console.log('MainPage error', e);
         notFound();
     }
 
     const { t } = await createTranslation(locale, 'common');
-    const sanitizer = dompurify.sanitize;
 
     return (
         <>
@@ -45,9 +44,9 @@ export default async function Home({ params: { locale } }: { params: { locale: L
                     )}
                     <div className="grow basis-0">
                         <h1 className="text-4xl text-neutral-300 font-bold uppercase mb-[1em]">
-                            {parse(sanitizer(dataMainPage.data.attributes.title))}
+                            {parse(sanitize(dataMainPage.data.attributes.title))}
                         </h1>
-                        <div className="text-2xl">{parse(sanitizer(dataMainPage.data.attributes.detail_text))}</div>
+                        <div className="text-2xl">{parse(sanitize(dataMainPage.data.attributes.detail_text))}</div>
                     </div>
                 </div>
             </PageSection>

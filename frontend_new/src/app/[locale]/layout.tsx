@@ -14,8 +14,8 @@ const carlito = Carlito({
     display: 'swap',
 });
 
-export async function generateStaticParams() {
-    return locales.map((locale) => ({ locale: locale }));
+export function generateStaticParams() {
+    return locales.map((locale) => ({ locale }));
 }
 
 type MetadataProps = {

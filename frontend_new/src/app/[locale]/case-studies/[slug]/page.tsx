@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import parse from 'html-react-parser';
-import dompurify from 'isomorphic-dompurify';
+import { sanitize } from 'isomorphic-dompurify';
 import { notFound } from 'next/navigation';
 import PageSection from '@/components/layout/pageSection';
 import type { CasePropsData } from '@/lib/types';
@@ -12,12 +12,9 @@ export default async function Page({ params: { locale, slug } }: { params: { loc
     try {
         dataCaseDetail = await fetchCaseDetail(locale, slug);
     } catch (e) {
-        console.log('CaseDetail error', e);
+        // console.log('CaseDetail error', e);
         notFound();
     }
-
-    const sanitizer = dompurify.sanitize;
-
     return (
         <>
             <PageSection fullHeight>
@@ -35,7 +32,7 @@ export default async function Page({ params: { locale, slug } }: { params: { loc
                     )}
                     <div className="grow basis-0">
                         <h1 className="text-3xl font-bold mb-3">{dataCaseDetail.data.attributes.name}</h1>
-                        <div>{parse(sanitizer(dataCaseDetail.data.attributes.detail_text))}</div>
+                        <div>{parse(sanitize(dataCaseDetail.data.attributes.detail_text))}</div>
                     </div>
                 </div>
             </PageSection>

@@ -1,6 +1,7 @@
 import qs from 'qs';
 import { fetcher } from '@/lib/utils';
 import { STRAPI_URL } from '@/constants/api';
+import type { CasePropsData, CasesPropsData, FooterContactsProps, MainPageProps, ServicesProps } from './types';
 
 export async function fetchMainPage(locale: string) {
     try {
@@ -12,7 +13,7 @@ export async function fetchMainPage(locale: string) {
             },
             { encodeValuesOnly: true }
         );
-        const MainPageResponse = await fetcher(`${STRAPI_URL}/main-page?${query}`);
+        const MainPageResponse: MainPageProps = await fetcher(`${STRAPI_URL}/main-page?${query}`);
         return MainPageResponse;
     } catch (error) {
         console.error('Database Error:', error);
@@ -29,7 +30,7 @@ export async function fetchFooterContacts(locale: string) {
             },
             { encodeValuesOnly: true }
         );
-        const FooterContactsResponse = await fetcher(`${STRAPI_URL}/footer?${query}`);
+        const FooterContactsResponse: FooterContactsProps = await fetcher(`${STRAPI_URL}/footer?${query}`);
         return FooterContactsResponse;
     } catch (error) {
         console.error('Database Error:', error);
@@ -47,7 +48,7 @@ export async function fetchCases(locale: string) {
             },
             { encodeValuesOnly: true }
         );
-        const CasesResponse = await fetcher(`${STRAPI_URL}/projects?${query}`);
+        const CasesResponse: CasesPropsData = await fetcher(`${STRAPI_URL}/projects?${query}`);
         return CasesResponse;
     } catch (error) {
         console.error('Database Error:', error);
@@ -65,7 +66,7 @@ export async function fetchCaseDetail(locale: string, code: string) {
             },
             { encodeValuesOnly: true }
         );
-        const CaseResponse = await fetcher(`${STRAPI_URL}/projects/${code}?${query}`);
+        const CaseResponse: CasePropsData = await fetcher(`${STRAPI_URL}/projects/${code}?${query}`);
         return CaseResponse;
     } catch (error) {
         console.error('Database Error:', error);
@@ -83,7 +84,7 @@ export async function fetchServices(locale: string) {
             },
             { encodeValuesOnly: true }
         );
-        const ServicesResponse = await fetcher(`${STRAPI_URL}/our-services?${query}`);
+        const ServicesResponse: ServicesProps = await fetcher(`${STRAPI_URL}/our-services?${query}`);
         return ServicesResponse;
     } catch (error) {
         console.error('Database Error:', error);

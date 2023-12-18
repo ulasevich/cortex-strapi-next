@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import PageSection from '@/components/layout/pageSection';
 
 export default function Error({ error, reset }: { error: Error & { digest?: string }; reset: () => void }) {
-    console.log('Error');
+    // console.log('Error');
     useEffect(() => {
         // Log the error to an error reporting service
         console.error(error);
