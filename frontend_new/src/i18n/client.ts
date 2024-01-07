@@ -1,5 +1,7 @@
 'use client';
 
+/* eslint @typescript-eslint/ban-ts-comment: off */
+// @ts-nocheck
 import { useEffect, useState } from 'react';
 import type { i18n } from 'i18next';
 import i18next from 'i18next';

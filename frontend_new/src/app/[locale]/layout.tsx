@@ -14,6 +14,7 @@ const carlito = Carlito({
     display: 'swap',
 });
 
+// это включает SSG тип рендеринга по умолчанию для всех страниц
 export function generateStaticParams() {
     return locales.map((locale) => ({ locale }));
 }
