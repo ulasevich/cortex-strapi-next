@@ -1,0 +1,90 @@
+version: '3'
+
+services:
+
+  backend:
+    container_name: backend
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.prod
+    restart: unless-stopped
+    ports:
+      - "1337:1337"
+    env_file: 
+    - ./.env
+    environment:
+      APP_KEYS: ${APP_KEYS}
+      API_TOKEN_SALT: ${API_TOKEN_SALT}
+      ADMIN_JWT_SECRET: ${ADMIN_JWT_SECRET}
+      TRANSFER_TOKEN_SALT: ${TRANSFER_TOKEN_SALT}
+      DATABASE_CLIENT: ${DATABASE_CLIENT}
+      DATABASE_HOST: ${DATABASE_HOST}
+      DATABASE_NAME: ${DATABASE_NAME}
+      DATABASE_USERNAME: ${DATABASE_USERNAME}
+      DATABASE_PORT: ${DATABASE_PORT}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
+      JWT_SECRET: ${JWT_SECRET}
+    #links:
+    #  - strapiDB:strapiDB
+    volumes:
+      - ./config:/opt/app/config
+      - ./src:/opt/app/src
+      - ./package.json:/opt/package.json
+      - ./yarn.lock:/opt/yarn.lock
+      - ./.env:/opt/app/.env
+      - ./public/uploads:/opt/app/public/uploads
+    #volumes:
+      # Required to sync file changes.
+      #- ../backend:/app
+      # Required to not break node modules.
+      #- /app/node_modules
+      #- ./.env:/app/.env
+    networks:
+      - cortex
+    #depends_on:
+    #  - strapiDB
+
+  #strapiDB:
+  #  image: postgres:16
+  #  container_name: strapiDB
+  #  restart: unless-stopped
+  #  ports:
+  #    - "5433:5433"
+  #  env_file: .env
+  #  environment:
+  #    POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+  #    POSTGRES_USER: ${DATABASE_USERNAME}
+  #    POSTGRES_DB: ${DATABASE_NAME}
+  #  volumes:
+  #  - postgres-data:/var/lib/postgresql/data
+  #  networks:
+  #    - cortex
+
+  frontend_new:
+    container_name: frontend_new
+    build:
+      context: ./frontend_new
+      dockerfile: Dockerfile.prod
+    ports:
+      - "3000:3000"
+    env_file: 
+      - ./.env
+    environment:
+      NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL}
+    #volumes:
+      # Required to sync file changes.
+      #- ../frontend_new:/app
+      # Required for next to do it's thing.
+      #- /app/.next
+      # Required to not break node modules.
+      #- /app/node_modules
+    networks:
+      - cortex
+
+networks:
+  cortex:
+    name: Cortex
+    driver: bridge
+
+#volumes:
+#  postgres-data:
