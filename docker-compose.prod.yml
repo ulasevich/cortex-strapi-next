@@ -32,7 +32,7 @@ services:
       - ./package.json:/opt/package.json
       - ./yarn.lock:/opt/yarn.lock
       - ./.env:/opt/app/.env
-      - ./public/uploads:/opt/app/public/uploads
+      - ./backend/public/uploads:/opt/app//backend/public/uploads
     #volumes:
       # Required to sync file changes.
       #- ../backend:/app
@@ -41,8 +41,8 @@ services:
       #- ./.env:/app/.env
     networks:
       - cortex
-    #depends_on:
-    #  - strapiDB
+    # depends_on:
+    #   - strapiDB
 
   #strapiDB:
   #  image: postgres:16
@@ -71,15 +71,17 @@ services:
       - ./.env
     environment:
       NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL}
-    #volumes:
-      # Required to sync file changes.
-      #- ../frontend_new:/app
-      # Required for next to do it's thing.
-      #- /app/.next
-      # Required to not break node modules.
-      #- /app/node_modules
+    # volumes:
+    #   # Required to sync file changes.
+    #   - ./frontend_new:/app
+    #   # Required for next to do it's thing.
+    #   - /app/.next
+    #   # Required to not break node modules.
+    #   - /app/node_modules
     networks:
       - cortex
+    depends_on:
+     - backend
 
 networks:
   cortex:

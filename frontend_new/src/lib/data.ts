@@ -13,7 +13,7 @@ export async function fetchMainPage(locale: string) {
             },
             { encodeValuesOnly: true }
         );
-        const MainPageResponse: MainPageProps = await fetcher(`${STRAPI_URL}/main-page?${query}`);
+        const MainPageResponse: MainPageProps = await fetcher(`${STRAPI_URL}/main-page?${query}`, { next: { revalidate: 60 } });
         return MainPageResponse;
     } catch (error) {
         console.error('Database Error:', error);

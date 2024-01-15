@@ -5,22 +5,20 @@ import parse from 'html-react-parser';
 import { sanitize } from 'isomorphic-dompurify';
 import type { LocaleTypes } from '@/i18n/settings';
 import { createTranslation } from '@/i18n/server';
-import { fetchMainPage, fetchCases, fetchServices } from '@/lib/data';
-import type { MainPageProps, CasesPropsData, ServicesProps } from '@/lib/types';
+import { fetchMainPage } from '@/lib/data';
+import type { MainPageProps } from '@/lib/types';
 import PageSection from '@/components/layout/pageSection';
 import SectionHeading from '@/components/layout/sectionHeading';
-import CasesList from '@/views/list/casesList';
-import ServicesList from '@/views/list/servicesList';
+// import CasesList from '@/views/list/casesList';
+// import ServicesList from '@/views/list/servicesList';
 
 export default async function Home({ params: { locale } }: { params: { locale: LocaleTypes } }) {
     let dataMainPage: MainPageProps;
-    let dataCases: CasesPropsData;
-    let dataServices: ServicesProps;
+    // let dataCases: CasesPropsData;
+    // let dataServices: ServicesProps;
 
     try {
         dataMainPage = await fetchMainPage(locale);
-        dataCases = await fetchCases(locale);
-        dataServices = await fetchServices(locale);
     } catch (e) {
         // console.log('MainPage error', e);
         notFound();
@@ -49,16 +47,6 @@ export default async function Home({ params: { locale } }: { params: { locale: L
                         <div className="text-2xl">{parse(sanitize(dataMainPage.data.attributes.detail_text))}</div>
                     </div>
                 </div>
-            </PageSection>
-            <PageSection wNarrow>
-                <SectionHeading>Companies Built</SectionHeading>
-                <Suspense fallback={<p>Loading feed...</p>}>
-                    <CasesList cases={dataCases} />
-                </Suspense>
-            </PageSection>
-            <PageSection wNarrow bgColor="yellow">
-                <SectionHeading>Our Services</SectionHeading>
-                <ServicesList services={dataServices} />
             </PageSection>
             <PageSection>
                 <SectionHeading>Why us</SectionHeading>
@@ -126,7 +114,7 @@ export default async function Home({ params: { locale } }: { params: { locale: L
                 </div>
             </PageSection>
             <PageSection>
-                <h2>Our Focus</h2>
+                <h2>Our Focus 123 45 66</h2>
                 <p>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
                     enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.{' '}
