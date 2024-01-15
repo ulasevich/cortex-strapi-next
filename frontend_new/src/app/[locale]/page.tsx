@@ -50,6 +50,17 @@ export default async function Home({ params: { locale } }: { params: { locale: L
             </PageSection>
             <PageSection>
                 <SectionHeading>Why us</SectionHeading>
+                <Image src="/test/nextjs-vs-reactjs.jpeg" width="900" height="589" alt="Test" />
+                <br />
+                <br />
+                <Image
+                    src="https://learn.microsoft.com/ru-ru/azure/static-web-apps/media/deploy-nextjs/start-nextjs-app.png"
+                    width="900"
+                    height="589"
+                    alt="Test"
+                />
+                <br />
+                <br />
                 <div className="overflow-auto">
                     <table className="default-table">
                         <thead>
