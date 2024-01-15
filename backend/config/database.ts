@@ -49,6 +49,7 @@ export default ({ env }) => {
     },
     postgres: {
       connection: {
+        // connectionString: 'postgresql://postgres:password@host.docker.internal/cortex_strapi?sslmode=disable',
         connectionString: env('DATABASE_URL'),
         host: env('DATABASE_HOST', 'localhost'),
         port: env.int('DATABASE_PORT', 5432),
