@@ -65,6 +65,9 @@ services:
     build:
       context: ./frontend_new
       dockerfile: Dockerfile.prod
+      args:
+        ENV_VARIABLE: ${ENV_VARIABLE}
+        NEXT_PUBLIC_ENV_VARIABLE: ${NEXT_PUBLIC_ENV_VARIABLE}
     ports:
       - "3000:3000"
     env_file: 
