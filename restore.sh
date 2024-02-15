@@ -1,0 +1,1 @@
+pg_restore -d cortex_strapi cx_backup.sql

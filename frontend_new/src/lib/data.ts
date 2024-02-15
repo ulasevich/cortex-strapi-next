@@ -30,7 +30,7 @@ export async function fetchFooterContacts(locale: string) {
             },
             { encodeValuesOnly: true }
         );
-        const FooterContactsResponse: FooterContactsProps = await fetcher(`${STRAPI_URL}/footer?${query}`);
+        const FooterContactsResponse: FooterContactsProps = await fetcher(`${STRAPI_URL}/footer?${query}`, { next: { revalidate: 50 } });
         return FooterContactsResponse;
     } catch (error) {
         console.error('Database Error:', error);
