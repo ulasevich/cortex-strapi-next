@@ -1,1 +1,1 @@
-export const STRAPI_URL = 'http://host.docker.internal:1337/api';
+export const STRAPI_URL = process.env.NEXT_PUBLIC_API_URL; // 'http://cx-test.com/strapi/api'

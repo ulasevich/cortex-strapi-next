@@ -5,20 +5,22 @@ import parse from 'html-react-parser';
 import { sanitize } from 'isomorphic-dompurify';
 import type { LocaleTypes } from '@/i18n/settings';
 import { createTranslation } from '@/i18n/server';
-import { fetchMainPage } from '@/lib/data';
-import type { MainPageProps } from '@/lib/types';
+import { fetchMainPage, fetchCases, fetchServices } from '@/lib/data';
+import type { CasesPropsData, MainPageProps, ServicesProps } from '@/lib/types';
 import PageSection from '@/components/layout/pageSection';
 import SectionHeading from '@/components/layout/sectionHeading';
-// import CasesList from '@/views/list/casesList';
-// import ServicesList from '@/views/list/servicesList';
+import CasesList from '@/views/list/casesList';
+import ServicesList from '@/views/list/servicesList';
 
 export default async function Home({ params: { locale } }: { params: { locale: LocaleTypes } }) {
     let dataMainPage: MainPageProps;
-    // let dataCases: CasesPropsData;
-    // let dataServices: ServicesProps;
+    let dataCases: CasesPropsData;
+    let dataServices: ServicesProps;
 
     try {
         dataMainPage = await fetchMainPage(locale);
+        dataCases = await fetchCases(locale);
+        dataServices = await fetchServices(locale);
     } catch (e) {
         // console.log('MainPage error', e);
         notFound();
@@ -42,11 +44,24 @@ export default async function Home({ params: { locale } }: { params: { locale: L
                     )}
                     <div className="grow basis-0">
                         <h1 className="text-4xl text-neutral-300 font-bold uppercase mb-[1em]">
+                            {process.env.NEXT_PUBLIC_API_URL}
+                            <br />
+                            {process.env.NEXT_PUBLIC_STRAPI_URL}
                             {parse(sanitize(dataMainPage.data.attributes.title))}
                         </h1>
                         <div className="text-2xl">{parse(sanitize(dataMainPage.data.attributes.detail_text))}</div>
                     </div>
                 </div>
+            </PageSection>
+            <PageSection wNarrow>
+                <SectionHeading>Companies Built</SectionHeading>
+                <Suspense fallback={<p>Loading feed...</p>}>
+                    <CasesList cases={dataCases} />
+                </Suspense>
+            </PageSection>
+            <PageSection wNarrow bgColor="yellow">
+                <SectionHeading>Our Services</SectionHeading>
+                <ServicesList services={dataServices} />
             </PageSection>
             <PageSection>
                 <SectionHeading>Why us</SectionHeading>
